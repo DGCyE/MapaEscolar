@@ -5,7 +5,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_CEC", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_CEC", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=14',
@@ -19,7 +19,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Ed.Física", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Ed.Física", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=13',
@@ -33,7 +33,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Artística", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Artística", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=12',
@@ -47,7 +47,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Especial_Form.Lab.", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Especial_Form.Lab.", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=11',
@@ -61,7 +61,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Especial_Post-Pri", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Especial_Post-Pri", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=10',
@@ -75,7 +75,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Especial_Primario", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Especial_Primario", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=9',
@@ -89,7 +89,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Especial_Inicial", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Especial_Inicial", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=8',
@@ -103,7 +103,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Adultos_Form.Prof.", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Adultos_Form.Prof.", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=7',
@@ -117,7 +117,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Adultos_Medio", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Adultos_Medio", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=6',
@@ -131,7 +131,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Adultos_Primario", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Adultos_Primario", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=5',
@@ -145,7 +145,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Comun_Superior", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Comun_Superior", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=4',
@@ -159,7 +159,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Comun_Secundario", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Comun_Secundario", "http://192.168.57.20/geoserver/mariano/wms?",
                    {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=3',
@@ -173,7 +173,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Comun_Primario", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Comun_Primario", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                        cql_filter: 'sector = 6 and capa=2',
@@ -187,7 +187,7 @@ var layers = [
             group: "mapaescolar",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Estatal_Comun_Inicial", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Estatal_Comun_Inicial", "http://192.168.57.20/geoserver/mariano/wms?",
                    {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                         cql_filter: 'sector = 6 and capa=1',
@@ -201,7 +201,7 @@ var layers = [
             group: "ambito",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Rural", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Rural", "http://192.168.57.20/geoserver/mariano/wms?",
                    {
                         LAYERS: 'mariano:v_ambito',
                        cql_filter: 'idubicacion IN (2,3,4) ',
@@ -215,7 +215,7 @@ var layers = [
             group: "ambito",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Urbano", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["Urbano", "http://192.168.57.20/geoserver/mariano/wms?",
                    {
                         LAYERS: 'mariano:v_ambito',
                        cql_filter: 'idubicacion = 1',
@@ -229,7 +229,7 @@ var layers = [
               group: "otros_org",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["CCIIE", "http://25.161.221.52/geoserver/mariano/wms?",
+              args: ["CCIIE", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_otros_org',
                         cql_filter: "idtipoorganizacion IN ('IC') ", 
@@ -243,7 +243,7 @@ var layers = [
               group: "otros_org",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Jefatura de Región Privada", "http://25.161.221.52/geoserver/mariano/wms?",
+              args: ["Jefatura de Región Privada", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_otros_org',
                         cql_filter: "idtipoorganizacion IN ('TJ')  and iddependencia = '4'", 
@@ -257,7 +257,7 @@ var layers = [
               group: "otros_org",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Jefatura de Región Estatal", "http://25.161.221.52/geoserver/mariano/wms?",
+              args: ["Jefatura de Región Estatal", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_otros_org',
                         cql_filter: "idtipoorganizacion IN ('TJ')  and iddependencia = '0'", 
@@ -271,7 +271,7 @@ var layers = [
               group: "otros_org",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Jefatura Distrital Estatal", "http://25.161.221.52/geoserver/mariano/wms?",
+              args: ["Jefatura Distrital Estatal", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_otros_org',
                         cql_filter: "idtipoorganizacion IN ('TH')  and iddependencia = '0'", 
@@ -285,7 +285,7 @@ var layers = [
               group: "limite_partidos",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Límite de Partido", "http://25.161.221.52/geoserver/carto_base/wms?",
+              args: ["Límite de Partido", "http://192.168.57.20/geoserver/carto_base/wms?",
                     {
                         LAYERS: 'carto_base:partidos',
                         transparent:true
@@ -298,7 +298,7 @@ var layers = [
               group: "limite_regiones",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Límite de Región", "http://25.161.221.52/geoserver/carto_base/wms?",
+              args: ["Límite de Región", "http://192.168.57.20/geoserver/carto_base/wms?",
                     {
                         LAYERS: 'carto_base:regiones',
                         transparent:true
@@ -311,7 +311,7 @@ var layers = [
               group: "predios",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Predios", "http://25.161.221.52/geoserver/carto_base/wms?",
+              args: ["Predios", "http://192.168.57.20/geoserver/carto_base/wms?",
                     {
                         LAYERS: 'carto_base:predios',
                         transparent:true
@@ -319,14 +319,29 @@ var layers = [
                   {isBaseLayer: false, visibility: false, ratio: 1, singleTile: true}
                 ]
             },
-       
+            
+             {
+              source: "ol",
+              group: "escuelas",
+              // fixed: true,
+              type: "OpenLayers.Layer.WMS",
+              args: ["Escuelas", "http://192.168.57.20/geoserver/mariano/wms?",
+                    {
+                        LAYERS: 'mariano:v_escuelas_geoserver',
+                       // cql_filter: "idtipoorganizacion IN ('TH')  and iddependencia = '0'", 
+                        transparent:true
+                    },
+                  {isBaseLayer: false, visibility: false, ratio: 1/*, opacity: 0.5*/, singleTile: true}
+                ]
+            },
+
             /*
             {
             source: "ol",
             group: "Estatal_Comun_Inicial",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["radio 1000m", "http://25.161.221.52/geoserver/mariano/wms?",
+            args: ["radio 1000m", "http://192.168.57.20/geoserver/mariano/wms?",
                     {
                         LAYERS: 'mariano:v_escuelas_geoserver',
                         cql_filter: param, // 0.01=1 km=1000 Mts
@@ -343,7 +358,7 @@ var layers = [
             group: "Estatal_Comun_Inicial",
            // fixed: true,
             type: "OpenLayers.Layer.WMS",
-            args: ["Región 1", "http://25.161.221.52/geoserver/Mapa/wms?",
+            args: ["Región 1", "http://192.168.57.20/geoserver/Mapa/wms?",
            // request=GetFeatureInfo&service=WMS&version=1.1.1&layers=prueba:v_escuelas_geoserver&styles=&srs=EPSG:4326&format=image/png&bbox=-7056953.73642308, -5017120.45690587, -6308031.45840665, -3929585.58862602&width=780&height=330&query_layers=prueba:v_escuelas_geoserver
                               {
                         LAYERS: 'Mapa:partidos_nuevo',
@@ -606,7 +621,7 @@ var layers = [
             source: "ol",
             group: "background",
             type: "OpenLayers.Layer.WMS",
-            args: ["Base", "http://25.161.221.52/geoserver/carto_base/wms?",
+            args: ["Base", "http://192.168.57.20/geoserver/carto_base/wms?",
                     {LAYERS: 'carto_base:carto_base'}
                   ]
         },
@@ -634,7 +649,7 @@ var layers = [
               group: "background",
               // fixed: true,
               type: "OpenLayers.Layer.WMS",
-              args: ["Partidos", "http://25.161.221.52/geoserver/carto_base/wms?",
+              args: ["Partidos", "http://192.168.57.20/geoserver/carto_base/wms?",
                     {
                         LAYERS: 'carto_base:partidos',
                         transparent:true

@@ -244,8 +244,20 @@ Ext.onReady(function() {
             }
               
             ]
+        },
+        listeners:{
+            'ready': function(){
+                layerEscuelas = app.mapPanel.map.getLayersByName("Escuelas")[0];
+                layerEscuelas.events.register('visibilitychanged',layerEscuelas,function(ev){
+                    if(this.getVisibility()){
+                        if(!this.params.cql_filter || this.params.cql_filter == ""){
+                            //this.setVisibility(false);
+                            createWindowArbol();
+                        }
+                    }
+                })
+            }
         }
-   
     });
 
        
