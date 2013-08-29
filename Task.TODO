@@ -1,0 +1,7 @@
+Selector de capas:
+  ✔ El formulario debe editar la unica capa de Escuelas. @done (13-08-29 01:23)
+  ✔ El formulario debe recordar el filtro actual de la capa. @done (13-08-29 01:23)
+  ✔ Una vez procesada la consulta se debe ocultar la ventana. @done (13-08-29 01:23)
+  ☐ Darle una onda a la ventana de CQL.
+  ☐ Agrego el parametro Styles como checkbox.
+  ☐ Buscar forma de crear un grupo y agregarle una capa.
