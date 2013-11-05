@@ -1,0 +1,408 @@
+<html>
+    <head>
+	    <link rel="Shorcut Icon" href="img/favicon.ico" type="image/x-icon" />
+	     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Mapa Escolar</title>
+
+
+		<script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="./script/ext-3.4.0/resources/css/ext-all.css" />
+        <link rel="stylesheet" type="text/css" href="./script/ext-3.4.0/examples/shared/examples.css" />
+        <link rel="stylesheet" type="text/css" href="./script/ext-3.4.0/resources/css/xtheme-gray.css"/>
+        <link rel="stylesheet" type="text/css" href="../theme/gxp/all.css"/>
+     <!--   <link rel="stylesheet" type="text/css" href="../theme/openlayers/default/style.css" /> -->
+        <link rel="stylesheet" type="text/css" href="../theme/openlayers/default/google.css" />
+        <link rel="stylesheet" type="text/css" href="../theme/geoext/css/geoext-all.css" />
+        <link rel="stylesheet" type="text/css" href="./script/libs/all.css"/>
+        <link rel="stylesheet" type="text/css" href="./script/libs/style.css"/>
+        <link rel="stylesheet" type="text/css" href="./script/libs/geoexplorer.css" />
+        <link rel="stylesheet" type="text/css" href="../theme/viewer.css"/>
+
+
+
+        <script type="text/javascript" src="./script/ext-3.4.0/adapter/ext/ext-base.js"></script>
+    <!--    <script type="text/javascript" src="./script/ext-3.4.0/ext-all-debug.js"></script> desarrollo-->
+         <script type="text/javascript" src="./script/ext-3.4.0/ext-all-debug.js"></script>
+        <script type="text/javascript" src="./script/OpenLayers-2.12/OpenLayers.js"></script>
+        <script type="text/javascript" src="./script/GeoExt.js"></script>
+        <script type="text/javascript" src="./script/gxp/script/loader.js"></script>
+        <script type="text/javascript" src="./script/RowExpander.js"></script>
+
+
+      	<script type="text/javascript" src="./script/OpenLayers-2.12/lib/deprecated.js"></script>
+	    <script type="text/javascript" src="./script/GeoExt-1.1/lib/GeoExt.ux/PrintPreview.js"></script>
+		<script type="text/javascript" src="./script/GeoExt-1.1/lib/overrides/override-ext-ajax.js"></script>
+
+
+		<script type="text/javascript" charset="ISO-8859-1" src="./script/libs/CQL.js"></script>
+		<!-- <script type="text/javascript" charset="ISO-8859-1" src="/libsOpenlayers/embrapa/IFrame.js"></script> -->
+		<script type="text/javascript" charset="ISO-8859-1" src="./script/libs/ext-ux/ColorField/Ext.ux.ColorField.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./script/libs/WMSGetFeatureInfo.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./script/libs/VectorLegend.js"></script>
+
+
+		<link rel="stylesheet" href="./script/libs/ext-ux/ColorField/Ext.ux.ColorField.css" />
+
+		<script type="text/javascript" src="./script/libs/examples/examples.js"></script>
+
+       <script type="text/javascript" charset="ISO-8859-1" src="./w_medidas.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_paineis.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_trees.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_layers.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_queries.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_util.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_tool_bar.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_capabilities.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_banco.js"></script>
+		<script type="text/javascript" charset="ISO-8859-1" src="./w_getfeature.js"></script>
+
+		<script type="text/javascript" charset="ISO-8859-1" src="./addcqlLayer.js"></script>
+        <script type="text/javascript" charset="ISO-8859-1" src="./w_form_arbol.js"></script>
+        <script type="text/javascript" charset="ISO-8859-1" src="./w_form_buscar_escuelas.js"></script>
+        <script type="text/javascript" charset="ISO-8859-1" src="./w_form_procura_municipio.js"></script>
+        <script type="text/javascript" charset="ISO-8859-1" src="./w_form_query_indi.js"></script>
+        <script type="text/javascript" charset="ISO-8859-1" src="./posicionamiento.js"></script>
+        <script type="text/javascript" charset="ISO-8859-1" src="./googleGeocoder.js"></script>
+
+
+		<style>
+
+		   div.olMap {
+				z-index: 0;
+				padding: 0 !important;
+				margin: 0 !important;
+				cursor: default;
+		   }
+
+		</style>
+
+
+
+		<script>
+
+		// dispara  el evento inicial cuando la pagina es cargada
+		Ext.onReady(function() {
+		/*
+		    var init = Ext.MessageBox.show({
+												   msg: 'Bienvenido a Mapa Escolar',
+												   progressText: 'cargando...',
+												   width:300,
+												   wait:true,
+												   waitConfig: {interval:50}
+	        });
+		*/
+		    // força uma chamada ao Ext.example.msg porque o chrome, i.e e safari apresentavam na primeira vez, a mensagem desalinhada
+			// descobri que na segunda vez em diante eles apresentavam certo, entao fiz uma gambiarra dentro do método, incluindo um parametro (o terceiro) que se ele existir
+			// executa o metodo sem apresentar a mensagem ... dai, faço a primeira chamada aqui sem apresentar nada e nas proximas vao funcionar para os tres browsers
+			Ext.example.msg('', "", true);
+
+		    Ext.QuickTips.init();
+
+            // necessário para fazer as legendas funcionarem para as layers
+            // criadas nas consultas dos usuários
+			GeoExt.VectorLegend.supports = function(layerRecord) {
+			    if( layerRecord.get("layer").styleMap ){
+				   return 1;
+				}
+                return 0;
+			};
+
+			map = creaMapaPrincipal();
+
+			geraBotoesMedicao(map);
+
+			viewPort = defineViewPort();
+
+			// as layers precisam ser adicionadas agora depois da criação do ViewPort
+			// senao as legendas não sincronizam
+			layers = layers.concat(criaLayersGoogle() );
+
+			layers = layers.concat(criaLayersPrincipal() );
+
+			// adiciona as layers
+			map.addLayers(layers);
+
+		//	verificaCookie();
+
+			// Navega por todas as layers do mapPanel, para corrigir um bug do LegendPanel
+			// que não apresenta as legendas para Layers com TILED = true (cacheadas)
+			ajustaLayersTiled( mapPanel );
+
+			highlightLayer = new OpenLayers.Layer.Vector("Highlighted Features", {
+                displayInLayerSwitcher: false,
+                isBaseLayer: false
+                }
+            );
+			map.addLayer(highlightLayer);
+
+			// gera a lista de extents nas layers
+		//	getWMSGeoExt(owsUrl);
+
+			// a grade graticule é uma layer portanto esta sendo adicionada aqui juntamente com as outras
+		//	map.addControl(criaGradeLatLong()); // o graticule cria uma grid de referencias long/lat no mapa
+
+			// cria e habilita o controle para pegar as informações de vetores ao clicar
+		    //infoControls = criaControleGetFeatureInfo("/geoserver_soma/wms", layers);
+			//infoControls.click.activate();
+		    //infoControls.hover.activate();
+		
+        
+          //////////////////////////////////////////////////////////////////////////////
+
+            info = new OpenLayers.Control.WMSGetFeatureInfo({
+                  autoActivate: true,
+                  infoFormat: "application/vnd.ogc.gml",
+                  maxFeatures: 3,
+               eventListeners: {
+                   "getfeatureinfo": function(e) {
+                      var items = [];
+                      Ext.each(e.features, function(feature) {
+                   items.push({
+                    xtype: "propertygrid",
+                    title: feature.fid,
+                    source: feature.attributes
+                });
+            });
+            new GeoExt.Popup({
+                title: "Información",
+                width: 300,
+                height: 300,
+                layout: "accordion",
+                map: mapPanel,
+                location: e.xy,
+                items: items
+            }).show();
+        }
+    }
+});
+			/*////////////////////////////////////////////////////////////////////////////////
+    			info = new OpenLayers.Control.WMSGetFeatureInfo({
+				url: wmsUrl,
+				layers: map.layers,
+				title: 'Informacion de la Capa',
+				displayClass: 'cursorInfo',
+				queryVisible: true,
+				eventListeners: {
+					getfeatureinfo: function(event) {
+					    var popup = new OpenLayers.Popup.FramedCloud(
+							"id_frames",
+							map.getLonLatFromPixel(event.xy),
+							null,
+							event.text,
+							null,
+							true
+						);
+						map.addPopup(popup);
+
+						// gambiarra das boas ...
+						// para resolver um problema com a CloudFrame para mostrar as informações da camada
+						// descobrimos que quando a partir de certa quantidade da layers adicionadas ao mapa
+						// o balão que apresenta as info das layers aparecia em segundo plano, e transparente ...
+						// descobrimos que o problema estava relacionado ao valor z-index, dentro da tag div do popup
+						// que estava recebendo um valor menor do que o maior valor correspondente da ultima layer adicionada (que também tem seu div e z-index)
+						// isso causava a sobreposição da popup, fazendo com que ela aparecesse abaixo das layers com z-index maior
+						// o código abaixo rastreia a div da popup e troca o valor da z-index pra 10000, que um valor, até agora aceitavel para resolver o problema
+						// se o problema retornar, pensar em aumentar este valor
+						var node = popup.div.attributes.style.nodeValue;
+						var indexZ = node.search("z-index");
+						var subString = node.substring(indexZ + 9, node.length-1);
+						node = node.replace(subString, "10000");
+						popup.div.attributes.style.nodeValue = node;
+					}
+				}
+            });
+*////////////////////////////////
+            map.addControl(info);
+
+			// faz o zoom no extent
+			//map.zoomToExtent(extent);
+			//map.zoomTo(0);
+
+			// existe um bug ao colocar o mapa do bing (tinha q ser da microsoft) como mapa base
+			// o mapa aparece deslocado totalmente fora da area do brasil
+			// para isso descobri que se der um zoom na escala 1 e depois voltar a zero ele estabiliza
+			//if( useVirtualEarth && !useGoogle ){
+			//   map.zoomTo(1);
+			//   map.zoomTo(0);
+			//}
+
+			// para forçar o mapa a ficar no zoom minimo, ja que o chrome não obedece ao zoomToExtent
+			//map.zoomTo(0);
+
+			//map.zoomToMaxExtent();
+
+			// seta o local dos objetos gxp para o arquivo br.js aonde estao as traduções
+			GeoExt.Lang.set("ar");
+
+			var _addLayers = new gxp.plugins.AddLayers({id:'addLayers'});
+
+
+			// aumenta o tempo de timeout do ExtJS para tentar fazer com que a leitura dos wms remotos funcione
+			Ext.override(Ext.data.Connection, {
+			     timeout: 9000000
+			});
+
+			// cria a viewer
+			_viewer = new gxp.Viewer({
+			              // proxy: "prox/prox.php?url=",
+			                proxy: "/cgi-bin/proxy.cgi?url=",
+							defaultSourceType: "gxp_wmssource",
+							sources: {
+								        ol: {
+											ptype: "gxp_olsource"
+										},
+										google: {
+											ptype: "gxp_googlesource"
+									 },
+
+                                       geoserver_cartobase:  {
+                                              url: "http://192.168.54.20/geoserver/carto_base/wms?",
+                                              title: "Geoserver - CartoBase",
+                                             ptype: "gxp_wmssource"
+                                     },
+
+
+                                   /*
+									    local: {
+											url:   "http://192.168.57.20/geoserver/carto_base/wms?",
+											title: "Geoserver - Mariano",
+											ptype: "gxp_wmssource"
+										},
+
+										local2: {
+											url:   "http://192.168.57.20/geoserver/mariano/wms",
+											title: "Geoserver - CartoBase",
+											ptype: "gxp_wmssource"
+										},
+								*/
+										osm: {
+											ptype: "gxp_osmsource"
+										},
+										bing: {
+											ptype: "gxp_bingsource"
+										}
+
+							},
+							mapPanel: mapPanel,
+							map: map,
+							tools:[_addLayers]
+			});
+
+			_viewer.load();
+
+		//	verificaHabilitarRecursos();
+
+		});
+
+		var urlWFS = "http://192.168.54.20/geoserver/mariano/wfs";
+		var _featureNS = "http://192.168.54.20/mariano";
+		var chartURL = './script/ext-3.4.0/resources/charts.swf';
+		// guarda a referencia ao endereço dos jsps usados pelo sistema
+     	var urlJSP = "./jsps/";
+	    // referencia principal do objeto mapa
+		var map, map2;
+		// endereço absoluto de acesso aos recursos do geoserver_soma
+	//	var owsUrl = "/geoserver_soma/ows";
+	//	var owsUrl = "http://192.168.57.20/geoserver/mariano/wms";
+	//	var wmsUrl = "/geoserver_soma/wms";
+	    var wmsUrl = "http://192.168.54.20/geoserver/mariano/wms";
+    //	var wmsUrl = "http://190.210.101.129/cgi-bin/mapaescolar";
+	//	var wfsUrl = "/geoserver_soma/wfs";
+	//	var cacheUrl = "/geoserver_soma/gwc/service/wms";
+		// extent principal para o zoom no mapa do brasil
+		var extent    = new OpenLayers.Bounds(-7175626.9266567,-5141723.905941,-6304445.4046767,-3812835.624341);
+		// maxExtent para o zoom do mundo
+		var lastExtent;
+		var maxExtent = new OpenLayers.Bounds(-7175626.9266567,-5141723.905941,-6304445.4046767,-3812835.624341);
+		// armazena as layers
+		var layers = new Array();
+		// tamanho da largura do painel esquerdo
+		var sizePanelEsquerdo = 300;
+		// tamanho da largura do painel direito
+		var sizeLegends = 200;
+		// armazena um objeto formatador de CQL para Rules
+		var cqlFormat = new OpenLayers.Format.CQL();
+		// armazena a layer de consulta
+		var wmsCQL;
+		// localização dos icones e imagens do openlayers
+		var imgLocation = OpenLayers.Util.getImagesLocation();
+		//tabPanel
+		var tabPanel;
+	    // grid de escuelas
+	//	var grid;
+		// arma referencia al panel izquierdo
+		var painelEsquerdo;
+		// mappanel global
+		var mapPanel;
+		// armazena referencia ao objeto LegendPanel principal
+		var legendPanel;
+		// LayerOpacitySlider principal para mudar a opacidade da layer atual
+		var sliderTreeImg = new GeoExt.LayerOpacitySlider({
+				                 tooltip: 'Cambiar la opacidade de la capa seleccionada',
+                                 width: 57,
+								 aggressive: true
+        });
+		// armazena a Window da LayerOpacity
+		var windowLayerOpacity;
+		// armazena a Window da consulta avançada do IBGE
+		/////////////////
+        var windowGeocoder;
+        var windowArbolCapas;
+        var windowBuscarEscuelas;
+
+		///////////////
+
+		var windowQuerieSQL;
+		// referencia ao viewPort principal
+		var viewPort;
+		// referencia ao flag que habilita/desabilita a sincronia em janelas exclusivas para layers temporais
+		var syncJanelasExclusivas = true;
+		// faz referencia a janela do slider de analise temporal
+		var sliderTemporal;
+		// armazena a referencia a lista de controles que permitem clicar nas layers e apresentar um balao contento as informações (GetFeatureInfo)
+		var sliderTemporalSpot;
+		// armazena a referencia a lista de controles que permitem clicar nas layers e apresentar um balao contento as informações (GetFeatureInfo)
+		var infoControls;
+		// armazena a layer que salienta o vetor que estiver sendo passado pelo mouse
+		var highlightLayer;
+		// armazena uma layer do tipo vector para aplicar a consulta em municipios
+		var vectorMunicipios;
+		// armazena o nome da sessão de pastas temporais do usuario
+		var nomeTemporal = "Temporais";
+		// armazena o nome da sessão de pastas de analises do usuario
+		var nomeAnalise = "Analises";
+
+		// seta se o webgis usara o google e mapas externos, senao, usa um mapa proprio como base
+		/*var useGoogle        = (getQuerystring("google") == "false" ? false : true);
+		var useVirtualEarth  = (getQuerystring("virtualearth") == "true" ? true : false);
+		var useYahoo         = (getQuerystring("yahoo") == "true" ? true : false); */
+		var baseMap          = (getQuerystring("basemap") == "false" ? false : true);
+
+		var useGoogle        = true;
+		var useVirtualEarth  = true;
+		var useYahoo         = true;
+
+		</script>
+
+    </head>
+    <body>
+    <div id="title" style="background: #FFFFFF;">
+		  <!--  <div id="texto1" style="float:left;"><img src="img/somabrasil_agencia.jpg">  </div>
+			<div id="title-img2" style="float:right;margin-top:15px;margin-right:5px"><img src="img/cnpm.png"></div>
+			<div id="container">
+          -->
+	</div>
+
+    <div id="resultados">
+			<!--<p style="font-family:Verdana; font-size:0.9em; text-align:center; font-weight:bold">
+				<br />Aca se muestran los resultados de la b&uacute;squeda de lugares.<br />
+				<br />Utilice la herramienta de buscar en la barra de herramientas ingresando el nombre del lugar que desea encontrar.
+			</p> -->
+	</div>
+
+    </body>
+
+</html>
+
