@@ -140,40 +140,23 @@ function criaLayersGoogle(){
 
  layers.push( new OpenLayers.Layer.OSM() );
 
-//layers.push( new OpenLayers.Layer.OSM("Branco",[""]));
-/*   var sig_base = new OpenLayers.Layer.WMS("WMS Capabase", tile, {layers: "Capabase", format: "image/png", srs:"EPSG:900913"},
-            {singleTile: true, ratio: 1}, {isBaseLayer: true});
-*/
-
- // layers.push(new OpenLayers.Layer.WMS("Base","http://192.168.54.20/geoserver/carto_base/wms?",
- //                  {
- //                      LAYERS: 'carto_base:partidos',
- //                      transparent:true,
- //                  },
- //                  {isBaseLayer: true, visibility: true, ratio: 1,displayInLayerSwitcher: true, singleTile: true}
- //                ));
-
-
-// layers.push(new OpenLayers.Layer.WMS("Base", "http://192.168.54.20/geoserver/carto_base/wms?", {
-//             layers: "carto_base:carto_base",transparent:true, format: 'image/png'},
-//             {isBaseLayer: true, visibility: false, ratio: 1, singleTile: true
-//           }
-//     ));
-
-   options = { isBaseLayer: false,
+  options = { isBaseLayer: false,
               format: "image/png",
                buttonOpacity: true,
                displayOutsideMaxExtent:true,
                visibility: false
    };
 
-layers.push( new OpenLayers.Layer.WMS("Base","http://192.168.54.20/geoserver/carto_base/wms?",
+layers.push( new OpenLayers.Layer.WMS("Partidos","http://192.168.54.20/geoserver/carto_base/wms?",
                     {
-                        LAYERS: 'carto_base:carto_base',
-                        format: 'image/png'
+                        LAYERS: 'carto_base:partidos',
+                        transparent:true
                     },
-                  {isBaseLayer: true, numZoomLevels: 19}
+                  {isBaseLayer: false, visibility: true, ratio: 1,displayInLayerSwitcher: false, singleTile: true}
                 ));
+
+layers.push( new OpenLayers.Layer.WMS("Capa Base", "http://192.168.54.20/geoserver/carto_base/wms?", {layers: 'carto_base:carto_base', format: "image/png"},
+             {isBaseLayer: true, numZoomLevels: 19 }));
 
 
    return layers;
@@ -194,12 +177,6 @@ function criaLayersPrincipal(){
   //         }
   //   ));
 
- layers.push(new OpenLayers.Layer.WMS("Comun Inicial", "http://192.168.54.20/geoserver/mariano/wfs", {
-            layers: "mariano:v_escuelas_geoserver",transparent:true, cql_filter: 'sector = 6 and capa=1',
-            format: 'image/png'},
-            {isBaseLayer: false, visibility: false, ratio: 1,displayInLayerSwitcher: false,  group: "comun",singleTile: true
-          }
-    ));
 
  layers.push(new OpenLayers.Layer.WMS("CCIIE", "http://192.168.54.20/geoserver/mariano/wms", {
             layers: "mariano:v_otros_org",transparent:true, cql_filter: "idtipoorganizacion IN ('IC')",
