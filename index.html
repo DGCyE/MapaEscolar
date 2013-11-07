@@ -25,7 +25,7 @@
         <script type="text/javascript" src="./script/ext-3.4.0/adapter/ext/ext-base.js"></script>
     <!--    <script type="text/javascript" src="./script/ext-3.4.0/ext-all-debug.js"></script> desarrollo-->
          <script type="text/javascript" src="./script/ext-3.4.0/ext-all-debug.js"></script>
-        <script type="text/javascript" src="./script/OpenLayers-2.12/OpenLayers.js"></script>
+        <script type="text/javascript" src="./script/OpenLayers-2.12/OpenLayers.debug.js"></script>
         <script type="text/javascript" src="./script/GeoExt.js"></script>
         <script type="text/javascript" src="./script/gxp/script/loader.js"></script>
         <script type="text/javascript" src="./script/RowExpander.js"></script>
@@ -246,8 +246,8 @@
 
 			// cria a viewer
 			_viewer = new gxp.Viewer({
-			              // proxy: "prox/prox.php?url=",
-			                proxy: "/cgi-bin/proxy.cgi?url=",
+                            proxy: "proxy/proxy.php?url=",
+			                //proxy: "/cgi-bin/proxy.cgi?url=",
 							defaultSourceType: "gxp_wmssource",
 							sources: {
 								        ol: {
