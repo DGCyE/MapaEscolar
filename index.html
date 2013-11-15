@@ -147,14 +147,73 @@
 		    //infoControls = criaControleGetFeatureInfo("/geoserver_soma/wms", layers);
 			//infoControls.click.activate();
 		    //infoControls.hover.activate();
-		
-        
+
+////// WMS GetFeatureInfo
+ info = new OpenLayers.Control.WMSGetFeatureInfo({
+	        autoActivate: true,
+             drillDown : false,
+             queryVisible : false,
+             panMapIfOutOfView : false,
+             // url: wmsUrl,
+            // layer: "http://192.168.54.20/geoserver/carto_base/wms",
+            layerUrls : [wmsUrl, urlWFS],
+          eventListeners : {
+                    getfeatureinfo : function (event) {
+                            popup = new OpenLayers.Popup.FramedCloud(
+                                  "popinfo",
+                                  map.getLonLatFromPixel(event.xy),
+                                  null,
+                                  event.text,
+                                  null,
+                                  true);
+                map.addPopup(popup, true);
+              }
+       }
+});
+
+map.addControl(info);
+info.activate();
+/*///////////////////////////////////////////////////////////////
+
+// create a control to get feature info from queryable layers
+            var info = new OpenLayers.Control.WMSGetFeatureInfo({
+                url: wmsUrl,
+                title: 'Identify features by clicking'
+              //  layers: [zoning],
+            });
+         //   map.addControl(info);
+            info.activate();
+
+            // register a listener for the getfeatureinfo event on the control
+            info.events.on({
+                getfeatureinfo: function(event) {
+                    // close existing popup
+                    if (popup) {
+                        popup.destroy();
+                    }
+                    popup = new GeoExt.Popup({
+                        title: "Popup",
+                        map: panel.map,
+                        lonlat: panel.map.getLonLatFromPixel(event.xy),
+                        width: 250,
+                        autoScroll: true,
+                        collapsible: true,
+                        bodyStyle: {padding: 5},
+                        html: event.text
+                    });
+                    popup.show();
+                }
+
           //////////////////////////////////////////////////////////////////////////////
 
             info = new OpenLayers.Control.WMSGetFeatureInfo({
-                  autoActivate: true,
-                  infoFormat: "application/vnd.ogc.gml",
-                  maxFeatures: 3,
+                               url: wmsUrl,
+                              title: 'Identify features by clicking',
+
+               //  autoActivate: true,
+                // infoFormat: "application/vnd.ogc.gml",
+                // queryVisible : true,
+                // maxFeatures: 3,
                eventListeners: {
                    "getfeatureinfo": function(e) {
                       var items = [];
@@ -177,7 +236,7 @@
         }
     }
 });
-			/*////////////////////////////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////
     			info = new OpenLayers.Control.WMSGetFeatureInfo({
 				url: wmsUrl,
 				layers: map.layers,
@@ -214,7 +273,7 @@
 				}
             });
 *////////////////////////////////
-            map.addControl(info);
+           map.addControl(info);
 
 			// faz o zoom no extent
 			//map.zoomToExtent(extent);
@@ -257,12 +316,28 @@
 											ptype: "gxp_googlesource"
 									 },
 
-                                       geoserver_cartobase:  {
-                                              url: "http://192.168.54.20/geoserver/carto_base/wms?",
-                                              title: "Geoserver - CartoBase",
-                                             ptype: "gxp_wmssource"
-                                     },
+                                        salud: {
+											url:   "http://sig.gobierno.gba.gov.ar:8080/geoserver/salud/wms?",
+											title: "Buenos Aires - Salud",
+											ptype: "gxp_wmssource"
+										},
 
+										hidraulica: {
+											url:   "http://www.mosp.gba.gov.ar/wms_hidraulica/cgi-bin/mapserv.exe?map=/ms4w/apps/m/wms.map",
+											title: "Buenos Aires - Dccion. Hidraulica",
+											ptype: "gxp_wmssource"
+										},
+
+                                        dc: {
+                                                url: "http://sig.gobierno.gba.gov.ar:8080/geoserver/dc/wms?",
+                                                title: "Buenos Aires - Defensa Civil",
+                                                ptype: "gxp_wmscsource"
+                                        },
+                                        apt: {
+                                               url: "http://sig.gobierno.gba.gov.ar:8080/geoserver/apt/wms?",
+                                               title: "Buenos Aires - Transporte",
+                                               ptype: "gxp_wmscsource"
+                                        },
 
                                    /*
 									    local: {
@@ -311,9 +386,9 @@
     //	var wmsUrl = "http://190.210.101.129/cgi-bin/mapaescolar";
 	//	var wfsUrl = "/geoserver_soma/wfs";
 	//	var cacheUrl = "/geoserver_soma/gwc/service/wms";
-		// extent principal para o zoom no mapa do brasil
+		// extent principal para Bs.As
 		var extent    = new OpenLayers.Bounds(-7175626.9266567,-5141723.905941,-6304445.4046767,-3812835.624341);
-		// maxExtent para o zoom do mundo
+
 		var lastExtent;
 		var maxExtent = new OpenLayers.Bounds(-7175626.9266567,-5141723.905941,-6304445.4046767,-3812835.624341);
 		// armazena as layers

@@ -13,17 +13,17 @@ function defineViewPort(){
                         alert(cmp);
 						alert(response);
                     }
-					
-		}	
-		
+
+		}
+
     });
 
 
 	var printPage = new GeoExt.data.PrintPage({
         printProvider: printProvider
-    }); 
+    });
 	*/
-    						  
+
    this.mapPanel = new GeoExt.MapPanel({
         id: "mapPanel",
 		layout: "anchor",
@@ -40,31 +40,31 @@ function defineViewPort(){
 										 },
                      scope: this
         }
-        
-   });			  
-				  
+
+   });
+
    var titulo = {
 					region: "north",
 					contentEl: "title",
 					height: 47
-				};	
-				
-   this.painelEsquerdo = criaPainelEsquerdo();				
+				};
 
-   var areaMapa = { 
+   this.painelEsquerdo = criaPainelEsquerdo();
+
+   var areaMapa = {
 					layout: "border",
 					region: "center",
 					tbar: createToolbar(),
 					items: [ mapPanel, { xtype: 'tbseparator' }, this.painelEsquerdo ]
-				  };				
-   
+				  };
+
 
    var view = new Ext.Viewport({
 		layout: "border",
 		hideBorders: true,
 		items: [titulo, areaMapa]
 	});
-	
+
    return view;
 
 }
@@ -75,6 +75,7 @@ function criaPainelEsquerdo(){
    var store = new GeoExt.data.LayerStore({
        map: this.map,
        layers: this.layers
+
    });
 
 
@@ -89,11 +90,11 @@ var legend = new GeoExt.LegendPanel({
 									  layerStore: mapPanel.layers,
                                       autoScroll: true
                 });
-	
-    // cria a referencia na variavel global para ser acessada pelo objeto de impress�o do mapa	
-  // legendPanel = legend;			
-				
-		   
+
+    // cria a referencia na variavel global para ser acessada pelo objeto de impress�o do mapa
+  // legendPanel = legend;
+
+
      	tabPanel = new Ext.TabPanel({
 				 activeTab : 0,
 				 plain:true,
@@ -105,7 +106,7 @@ var legend = new GeoExt.LegendPanel({
 			     collapsed: false,
 				 enableDD: true,
 				 //collapseMode: 'mini',
-				 items: [ criaTree(), legend, 
+				 items: [ criaTree(), legend,
 				 {
 				   id:'2',
 				   title:'Resultados',
@@ -113,12 +114,12 @@ var legend = new GeoExt.LegendPanel({
 				 }
 			],
 				 width:250
-	 });  
+	 });
 
    painelEsquerdo = tabPanel;
 
-return painelEsquerdo;	
-				 
+return painelEsquerdo;
+
 }
 
 
@@ -132,7 +133,7 @@ function createWindowSliderOpacity(layer){
    if( layer ){
        sliderTreeImg.setLayer(layer);
    }
-   
+
    // o parametro closeAction � importante ser hide
    // para que a sliderTreeImg n�o seja destruida quando
    // o usu�rio fechar a janela
@@ -146,7 +147,7 @@ function createWindowSliderOpacity(layer){
 					closeAction: 'hide',
 					iconCls: 'bt-opacity',
 					items: [ sliderTreeImg ]
-	  });				
+	  });
    }
 
    return windowLayerOpacity;
@@ -164,9 +165,9 @@ function createWindowMapFromLayer( layer, notCenter ){
 		numZoomLevels: 19
    };
 
-	// cria��o e defini��o do mapa principal 				
+	// cria��o e defini��o do mapa principal
 	var mmap = new OpenLayers.Map( 'mapa' , options );
-	
+
 	mmap.addControl(new OpenLayers.Control.Scale($('Escala')));
 	mmap.addControl(new OpenLayers.Control.Navigation({
 						dragPanOptions: {
@@ -175,28 +176,28 @@ function createWindowMapFromLayer( layer, notCenter ){
 				   }));
     mmap.addControl(new OpenLayers.Control.Attribution());
     mmap.addControl(new OpenLayers.Control.Zoom());
-	mmap.addControl(new OpenLayers.Control.MousePosition({element: $('Localizacion'), formatOutput: formatLonlats})); 
+	mmap.addControl(new OpenLayers.Control.MousePosition({element: $('Localizacion'), formatOutput: formatLonlats}));
 	mmap.addControl(new OpenLayers.Control.ScaleLine());
-	
+
 	var layers = new Array();
 	var mLayer = layer.clone();
 	mLayer.setVisibility(true);
 	mLayer.setOpacity(1);
-	
-			
+
+
 	layers = layers.concat( criaLayersGoogle(), mLayer);
 	mmap.addLayers( layers );
-	
+
 	/*mmap.events.register("click", mmap , function(e){
         mmap.zoomToExtent(extent);
     }); */
-			
+
 	var win = new Ext.Window({
 					title: 'Mapa - ' + layer.name,
 					height: 500,
 					width: 500,
 					layout: 'fit',
-					resizable: true, 
+					resizable: true,
 					iconCls: 'bt-query-avancada',
 					items: [{
                                xtype: "gx_mappanel",
@@ -204,15 +205,15 @@ function createWindowMapFromLayer( layer, notCenter ){
                     }]
 
 	});
-	
+
 	win.on('show', function() {
        mmap.zoomToExtent(extent);
     });
-	
+
 	if( notCenter ){
 	   win.setPosition( viewPort.getWidth()-500, 150 );
-	}   
-	
+	}
+
 	return win;
 
 }
@@ -222,7 +223,7 @@ function createWindowImprimir(){
 	var options = {
 		projection: new OpenLayers.Projection('EPSG:900913'),
 		//displayProjection: new OpenLayers.Projection("EPSG:4326"),
-		maxExtent: new OpenLayers.Bounds(-7175626.9266567,-5141723.905941,-6304445.4046767,-3812835.624341), 
+		maxExtent: new OpenLayers.Bounds(-7175626.9266567,-5141723.905941,-6304445.4046767,-3812835.624341),
 		maxResolution: 'auto',
 		units: "meters",
 		minZoomLevel: 2,
@@ -230,31 +231,31 @@ function createWindowImprimir(){
 		numZoomLevels: 20
 	};
 
-	// cria��o e defini��o do mapa principal 				
+	// cria��o e defini��o do mapa principal
 	var mmap = new OpenLayers.Map( 'mapa' , options );
 	mmap.addControl(new OpenLayers.Control.PanZoomBar({
 					   position: new OpenLayers.Pixel(1, 15),
 					   zoomWorldIcon: false
-	})); 
+	}));
 	mmap.addControl(new OpenLayers.Control.Scale($('Escala')));
 	mmap.addControl(new OpenLayers.Control.Navigation());
-	mmap.addControl(new OpenLayers.Control.MousePosition({element: $('Localizacion'), formatOutput: formatLonlats})); 
+	mmap.addControl(new OpenLayers.Control.MousePosition({element: $('Localizacion'), formatOutput: formatLonlats}));
 	mmap.addControl(new OpenLayers.Control.ScaleLine());
-	
-	var myLayers = new Array();  
-	
+
+	var myLayers = new Array();
+
 	//myLayers = myLayers.concat( criaLayersGoogle() );
-	
+
 	for(var i = 0; i < this.layers.length; i++){
 	   if( !this.layers[i].isBaseLayer && this.layers[i].visibility ){
 	      myLayers = myLayers.concat( this.layers[i] );
 	   }
 	}
-	
+
 	mmap.addLayers( myLayers );
-	
+
     var printProvider = new GeoExt.data.PrintProvider({
-        method: "POST", 
+        method: "POST",
         capabilities: printCapabilities, // from the info.json script in the html
         customParams: {
             mapTitle: "Printing Demo",
@@ -265,7 +266,7 @@ function createWindowImprimir(){
     var printExtent = new GeoExt.plugins.PrintExtent({
         printProvider: printProvider
     });
-	
+
 	var mp = new GeoExt.MapPanel({
 	    layers: myLayers,
  	    plugins: [printExtent],
@@ -276,21 +277,21 @@ function createWindowImprimir(){
 			 }
 	    }]
     });
-	
+
 	var win = new Ext.Window({
 					title: 'Impress�o do Mapa',
 					height: 400,
 					width: 500,
 					layout: 'fit',
-					resizable: true, 
+					resizable: true,
 					iconCls: 'bt-imprimir',
 					items: [mp]
 	});
-	
+
     printExtent.addPage();
-		
+
 	win.setPosition( viewPort.getWidth()-500, 150 );
-	   	
+
 	return win;
 
 }
