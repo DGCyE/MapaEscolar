@@ -132,11 +132,6 @@ gxp.plugins.LayerTree = Ext.extend(gxp.plugins.Tool, {
             isTarget: false,
             allowDrop: false
         });
-
-        var baseAttrs;
-        if (this.initialConfig.loader && this.initialConfig.loader.baseAttrs) {
-            baseAttrs = this.initialConfig.loader.baseAttrs;
-        }
         
         var defaultGroup = this.defaultGroup,
             plugin = this,
@@ -153,8 +148,8 @@ gxp.plugins.LayerTree = Ext.extend(gxp.plugins.Tool, {
                 group: group == this.defaultGroup ? undefined : group,
                 loader: new GeoExt.tree.LayerLoader({
                     baseAttrs: exclusive ?
-                        Ext.apply({checkedGroup: Ext.isString(exclusive) ? exclusive : group}, baseAttrs) :
-                        baseAttrs,
+                        {checkedGroup: Ext.isString(exclusive) ? exclusive : group} :
+                        undefined,
                     store: this.target.mapPanel.layers,
                     filter: (function(group) {
                         return function(record) {
@@ -215,7 +210,7 @@ gxp.plugins.LayerTree = Ext.extend(gxp.plugins.Tool, {
             }));
             if (record) {
                 attr.qtip = record.get('abstract');
-                if (!record.get("queryable") && !attr.iconCls) {
+                if (!record.get("queryable")) {
                     attr.iconCls = "gxp-tree-rasterlayer-icon";
                 }
                 if (record.get("fixed")) {

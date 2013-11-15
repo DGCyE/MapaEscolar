@@ -42,7 +42,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
      *  ``String``
      *  Text for find menu item (i18n).
      */
-    findActionMenuText: "Find layers",
+    findActionMenuText: "Buscar capas",
 
     /** api: config[addActionTip]
      *  ``String``
@@ -185,25 +185,12 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
      * The identifier of the source that we should start with.
      */
     startSourceId: null,
-
-    /** api: config[catalogSourceKey]
-     *  ``String`` When lazy layerRecords are created by the 'Find Layers'
-     *  function, they can optionally be associated with another source. 
-     *  E.g. the 'local' source in GeoNode client.
-     */
-    catalogSourceKey: null,
     
     /** private: property[selectedSource]
      *  :class:`gxp.plugins.LayerSource`
      *  The currently selected layer source.
      */
     selectedSource: null,
-    
-    /** private: property[addServerId]
-     *  ``String`` Id of the record in the sourceComboBox that is used to
-     *  add a new source.
-     */
-    addServerId: null,
 
     /** private: method[constructor]
      */
@@ -313,7 +300,6 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                     var bbox = bounds.transform(layerConfig.srs, mapProjection);
                     layerConfig.srs = mapProjection;
                     layerConfig.bbox = bbox.toArray();
-                    layerConfig.source = this.catalogSourceKey || sourceKey;
                     var record = source.createLayerRecord(layerConfig);
                     this.target.mapPanel.layers.add(record);
                 },
@@ -345,7 +331,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
         var source, data = [], target = this.target;        
         for (var id in target.layerSources) {
             source = target.layerSources[id];
-            if (source.store && !source.hidden) {
+            if (source.store && source.ptype !== "gxp_cataloguesource") {
                 data.push([id, source.title || id, source.url]);                
             }
         }
@@ -357,28 +343,10 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
         var expander = this.createExpander();
         
         function addLayers() {
-            var source = this.selectedSource;
+            var key = sourceComboBox.getValue();
+            var source = this.target.layerSources[key];
             var records = capGridPanel.getSelectionModel().getSelections();
-            var recordsToAdd = [],
-                numRecords = records.length;
-            function collectRecords(record) {
-                if (recordsToAdd) {
-                    recordsToAdd.push(record);
-                }
-                numRecords--;
-                if (numRecords === 0) {
-                    this.addLayers(recordsToAdd);
-                }
-            }
-            for (var i=0, ii=records.length; i<ii; ++i) {
-                var record = source.createLayerRecord({
-                    name: records[i].get("name"),
-                    source: source.id
-                }, collectRecords, this);
-                if (record) {
-                    collectRecords.call(this, record);
-                }
-            }
+            this.addLayers(records, source);
         }
         
         var idx = 0;
@@ -395,13 +363,14 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
         var capGridPanel = new Ext.grid.GridPanel({
             store: source.store,
             autoScroll: true,
+            flex: 1,
             autoExpandColumn: "title",
             plugins: [expander],
             loadMask: true,
             colModel: new Ext.grid.ColumnModel([
                 expander,
                 {id: "title", header: this.panelTitleText, dataIndex: "title", sortable: true},
-                {header: "Id", dataIndex: "name", width: 120, sortable: true}
+                {header: "Id", dataIndex: "name", width: 150, sortable: true}
             ]),
             listeners: {
                 rowdblclick: addLayers,
@@ -411,7 +380,6 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
         
         var sourceComboBox = new Ext.form.ComboBox({
             ref: "../sourceComboBox",
-            width: 165,
             store: sources,
             valueField: "id",
             displayField: "title",
@@ -424,30 +392,12 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
             value: data[idx][0],
             listeners: {
                 select: function(combo, record, index) {
-                    var id = record.get("id");
-                    if (id === this.addServerId) {
-                        showNewSourceDialog();
-                        sourceComboBox.reset();
-                        return;
-                    }
-                    var source = this.target.layerSources[id];
+                    var source = this.target.layerSources[record.get("id")];
                     capGridPanel.reconfigure(source.store, capGridPanel.getColumnModel());
                     // TODO: remove the following when this Ext issue is addressed
                     // http://www.extjs.com/forum/showthread.php?100345-GridPanel-reconfigure-should-refocus-view-to-correct-scroller-height&p=471843
                     capGridPanel.getView().focusRow(0);
                     this.setSelectedSource(source);
-                    // blur the combo box
-                    //TODO Investigate if there is a more elegant way to do this.
-                    (function() {
-                        combo.triggerBlur();
-                        combo.el.blur();
-                    }).defer(100);
-                },
-                focus: function(field) {
-                    if (target.proxy) {
-                        // embrapa - aqui foi corrigido um problema que o combobox era resetado toda vez que se clicava nele  
-                        //field.reset();
-                    }
                 },
                 scope: this
             }
@@ -464,8 +414,24 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
         }
         
         if (this.target.proxy) {
-            this.addServerId = Ext.id();
-            sources.loadData([[this.addServerId, this.addServerText + "..."]], true);
+            capGridToolbar.push("-", new Ext.Button({
+                text: this.addServerText,
+                iconCls: "gxp-icon-addserver",
+                handler: function() {
+                    if (this.outputTarget) {
+                        this.addOutput(newSourceDialog);
+                    } else {
+                        new Ext.Window({
+                            title: gxp.NewSourceDialog.prototype.title,
+                            modal: true,
+                            hideBorders: true,
+                            width: 300,
+                            items: newSourceDialog
+                        }).show();
+                    }
+                },
+                scope: this
+            }));
         }
         
         var newSourceDialog = {
@@ -492,7 +458,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                             newSourceDialog.hide();
                         },
                         fallback: function(source, msg) {
-                            newSourceDialog.setError(
+                            this.setError(
                                 new Ext.Template(this.addLayerSourceErrorText).apply({msg: msg})
                             );
                         },
@@ -502,27 +468,11 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                 scope: this
             }
         };
-        var me = this;
-        function showNewSourceDialog() {
-            if (me.outputTarget) {
-                me.addOutput(newSourceDialog);
-            } else {
-                new Ext.Window({
-                    title: gxp.NewSourceDialog.prototype.title,
-                    modal: true,
-                    hideBorders: true,
-                    width: 300,
-                    items: newSourceDialog
-                }).show();
-            }
-        }        
-        
         
         var items = {
             xtype: "container",
             region: "center",
-            layout: "fit",
-            hideBorders: true,
+            layout: "vbox",
             items: [capGridPanel]
         };
         if (this.instructionsText) {
@@ -569,7 +519,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
             closeAction: "hide",
             layout: "border",
             height: 300,
-            width: 515,
+            width: 450,
             modal: true,
             items: items,
             tbar: capGridToolbar,
@@ -596,31 +546,19 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
     
     /** private: method[addLayers]
      *  :arg records: ``Array`` the layer records to add
+     *  :arg source: :class:`gxp.plugins.LayerSource` The source to add from
      *  :arg isUpload: ``Boolean`` Do the layers to add come from an upload?
      */
-    addLayers: function(records, isUpload) {
-        var source = this.selectedSource;
+    addLayers: function(records, source, isUpload) {
+        source = source || this.selectedSource;
         var layerStore = this.target.mapPanel.layers,
             extent, record, layer;
         for (var i=0, ii=records.length; i<ii; ++i) {
-            // If the source is lazy, then createLayerRecord will not return
-            // a record, and we take the preconfigured record.
             record = source.createLayerRecord({
                 name: records[i].get("name"),
                 source: source.id
-            }) || records[i];
+            });
             if (record) {
-            
-                // EMBRAPA verifica se a layer ja existe
-                var volta = false;
-                for( var x = 0; x < layerStore.data.items.length; x++){
-                   if( record.data.title == layerStore.data.items[x].data.title ){
-                      volta = true
-                   }
-                }
-                if( volta ){ continue; }
-                // EMBRAPA
-            
                 layer = record.getLayer();
                 if (layer.maxExtent) {
                     if (!extent) {
@@ -629,55 +567,26 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                         extent.extend(record.getLayer().maxExtent);
                     }
                 }
-                
-                //EMBRAPA verifica se a layer pertence ao grupo de baseLayers
-                var isBaseLayer = false;
-                if( layer.CLASS_NAME == "OpenLayers.Layer.Google" ||
-                    layer.CLASS_NAME == "OpenLayers.Layer.Bing" ||
-                    layer.CLASS_NAME == "OpenLayers.Layer.OSM" ||
-                    layer.CLASS_NAME == "OpenLayers.Layer.TMS" ){
-                    isBaseLayer = true; 
-                }   
-                // EMBRAPA
-            
-                // EMBRAPA
-                //layer.map = this.target.mapPanel.map;
-                if (isBaseLayer){
-                   layerStore.insert(1, [record]);
-                   this.target.mapPanel.map.setBaseLayer(layer);
-                   extent = null;
-                } else {   
-                   record.set("group", "external");
-                   layerStore.add([record]);
-                }
-                // EMBRAPA
-                
-                // original
-                /*if (record.get("group") === "background") {
-                    // layer index 0 is the invisible base layer, so we insert
-                    // at position 1.
-                    layerStore.insert(1, [record]);
+                if (record.get("group") === "background") {
+                    layerStore.insert(0, [record]);
                 } else {
                     layerStore.add([record]);
-                }*/
-            }
-        }
-        if (extent) {
-            this.target.mapPanel.map.zoomToExtent(extent);
-        }
-        if (records.length === 1 && record) {
-            // select the added layer
-            this.target.selectLayer(record);
-            if (isUpload && this.postUploadAction) {
-                // show LayerProperties dialog if just one layer was uploaded
-                var outputConfig,
-                    actionPlugin = this.postUploadAction;
-                if (!Ext.isString(actionPlugin)) {
-                    outputConfig = actionPlugin.outputConfig;
-                    actionPlugin = actionPlugin.plugin;
                 }
-                this.target.tools[actionPlugin].addOutput(outputConfig);
             }
+        }
+        //if (extent) {
+         //   this.target.mapPanel.map.zoomToExtent(extent);
+       // }
+        if (isUpload && this.postUploadAction && records.length === 1 && record) {
+            // show LayerProperties dialog if just one layer was added
+            this.target.selectLayer(record);
+            var outputConfig,
+                actionPlugin = this.postUploadAction;
+            if (!Ext.isString(actionPlugin)) {
+                outputConfig = actionPlugin.outputConfig;
+                actionPlugin = actionPlugin.plugin;
+            }
+            this.target.tools[actionPlugin].addOutput(outputConfig);
         }
     },
     
@@ -697,7 +606,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                     rec = store.getAt(index),
                     source = this.target.layerSources[rec.get("id")];
                 if (source) {
-                    if (source.title !== rec.get("title") && !Ext.isEmpty(source.title)) {
+                    if (source.title !== rec.get("title")) {
                         rec.set("title", source.title);
                         sourceComboBox.setValue(rec.get(valueField));
                     }
@@ -734,27 +643,23 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                         var panel = new gxp.LayerUploadPanel(Ext.apply({
                             title: this.outputTarget ? this.uploadText : undefined,
                             url: url,
-                            width: 300,
+                            width: 350,
                             border: false,
                             bodyStyle: "padding: 10px 10px 0 10px;",
+                            frame: true,
                             labelWidth: 65,
                             autoScroll: true,
                             defaults: {
-                                anchor: "99%",
+                                anchor: "95%",
                                 allowBlank: false,
                                 msgTarget: "side"
                             },
                             listeners: {
                                 uploadcomplete: function(panel, detail) {
                                     var layers = detail["import"].tasks[0].items;
-                                    var item, names = {}, resource, layer;
+                                    var names = {}, resource, layer;
                                     for (var i=0, len=layers.length; i<len; ++i) {
-                                        item = layers[i];
-                                        if (item.state === "ERROR") {
-                                            Ext.Msg.alert(item.originalName, item.errorMessage);
-                                            return;
-                                        }
-                                        resource = item.resource;
+                                        resource = layers[i].resource;
                                         layer = resource.featureType || resource.coverage;
                                         names[layer.namespace.name + ":" + layer.name] = true;
                                     }
@@ -783,7 +688,7 @@ gxp.plugins.AddLayers = Ext.extend(gxp.plugins.Tool, {
                                                     gridPanel.getView().focusRow(last);
                                                 }, 100);
                                             } else {
-                                                this.addLayers(newRecords, true);
+                                                this.addLayers(newRecords, undefined, true);
                                             }
                                         },
                                         scope: this

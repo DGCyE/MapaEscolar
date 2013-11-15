@@ -463,19 +463,13 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                 hidden: true
             })
         }, config));
-		// embrapa - comentario - o mappanel original não tem o metodo getTopToolbar
-		
-		try{
-		
         this.mapPanel.getTopToolbar().on({
             afterlayout: this.mapPanel.map.updateSize,
             show: this.mapPanel.map.updateSize,
             hide: this.mapPanel.map.updateSize,
             scope: this.mapPanel.map
-        }); 
+        });
         
-		// embrapa - comentario
-		
         this.mapPanel.layers.on({
             "add": function(store, records) {
                 // check selected layer status
@@ -493,9 +487,7 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                 }
             },
             scope: this
-        }); 
-		} catch(e){
-		}
+        });
     },
     
     initTools: function() {
@@ -523,9 +515,7 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
             this.mapPanel.region = "center";
             this.portalItems.push(this.mapPanel);
         }
-		
-		// embrapa
-        try{
+        
         this.portal = Ext.ComponentMgr.create(Ext.applyIf(config, {
             layout: "fit",
             hideBorders: true,
@@ -535,8 +525,6 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                 items: this.portalItems
             }
         }), config.renderTo ? "panel" : "viewport");
-		} catch(e) {
-		}
         
         this.fireEvent("portalready");
     },
@@ -572,9 +560,7 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                             overlayRecords.push(record);
                         }
                     }
-                } else if (window.console) {
-                    console.warn("Non-existing source '" + conf.source + "' referenced in layer config.");
-                } 
+                }
             }
             
             var panel = this.mapPanel;
