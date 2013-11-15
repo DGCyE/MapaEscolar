@@ -147,16 +147,6 @@ function criaLayersGoogle(){
                visibility: false
    };
 
-layers.push( new OpenLayers.Layer.WMS("Partidos","http://192.168.54.20/geoserver/carto_base/wms?",
-                    {
-                        LAYERS: 'carto_base:partidos',
-                        transparent:true
-                    },
-                  {isBaseLayer: false, visibility: true, ratio: 1,displayInLayerSwitcher: false, singleTile: true}
-                ));
-
-layers.push( new OpenLayers.Layer.WMS("Capa Base", "http://192.168.54.20/geoserver/carto_base/wms?", {layers: 'carto_base:carto_base', format: "image/png"},
-             {isBaseLayer: true, numZoomLevels: 19 }));
 
 
    return layers;
@@ -178,43 +168,55 @@ function criaLayersPrincipal(){
   //   ));
 
 
- layers.push(new OpenLayers.Layer.WMS("CCIIE", "http://192.168.54.20/geoserver/mariano/wms", {
+ layers.push(new OpenLayers.Layer.WMS("CCIIE", wmsUrl, {
             layers: "mariano:v_otros_org",transparent:true, cql_filter: "idtipoorganizacion IN ('IC')",
             format: 'image/png'},
             {isBaseLayer: false, visibility: false, ratio: 1,displayInLayerSwitcher: true,  group: "cie",singleTile: true
           }
     ));
 
- layers.push(new OpenLayers.Layer.WMS("Jefatura de Región Privada", "http://192.168.54.20/geoserver/mariano/wms", {
+ layers.push(new OpenLayers.Layer.WMS("Jefatura de Región Privada", wmsUrl, {
             layers: "mariano:v_otros_org",transparent:true, cql_filter: "idtipoorganizacion IN ('TJ')  and iddependencia = '4'",
             format: 'image/png'},
             {isBaseLayer: false, visibility: false, ratio: 1,displayInLayerSwitcher: true,  group: "jef",singleTile: true
           }
     ));
 
- layers.push(new OpenLayers.Layer.WMS("Jefatura de Región Estatal", "http://192.168.54.20/geoserver/mariano/wms", {
+ layers.push(new OpenLayers.Layer.WMS("Jefatura de Región Estatal", wmsUrl, {
             layers: "mariano:v_otros_org",transparent:true, cql_filter: "idtipoorganizacion IN ('TJ')  and iddependencia = '0'",
             format: 'image/png'},
             {isBaseLayer: false, visibility: false, ratio: 1,displayInLayerSwitcher: true,  group: "jef",singleTile: true
           }
     ));
 
- layers.push(new OpenLayers.Layer.WMS("Jefatura Distrital Estatal", "http://192.168.54.20/geoserver/mariano/wms", {
+ layers.push(new OpenLayers.Layer.WMS("Jefatura Distrital Estatal", wmsUrl, {
             layers: "mariano:v_otros_org",transparent:true, cql_filter: "idtipoorganizacion IN ('TH')  and iddependencia = '0'",
             format: 'image/png'},
             {isBaseLayer: false, visibility: false, ratio: 1,displayInLayerSwitcher: true,  group: "jef",singleTile: true
           }
     ));
-
+/*
  layers.push(new OpenLayers.Layer.WMS("Predios", "http://192.168.54.20/geoserver/carto_base/wms", {
             layers: "carto_base:predios",transparent:true,
             format: 'image/png'},
             {isBaseLayer: false, visibility: false, ratio: 1,displayInLayerSwitcher: true,  group: "predios",singleTile: true
           }
     ));
-
+*/
 layers.push(layerEscuelasCql);
 
+
+
+layers.push( new OpenLayers.Layer.WMS("Partidos","http://192.168.54.20/geoserver/carto_base/wms?",
+                    {
+                        LAYERS: 'carto_base:partidos',
+                        transparent:true
+                    },
+                  {isBaseLayer: false, visibility: true, ratio: 1,displayInLayerSwitcher: false, singleTile: true}
+                ));
+
+layers.push( new OpenLayers.Layer.WMS("Capa Base", "http://192.168.54.20/geoserver/carto_base/wms?", {layers: 'carto_base:carto_base', format: "image/png"},
+             {isBaseLayer: true, numZoomLevels: 19 }));
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*************
