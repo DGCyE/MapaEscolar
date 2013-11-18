@@ -42,6 +42,15 @@ var layers = [{
         group: "consulta",
         cql_filter: "sector = 5 AND capa IN (1)"
     },
+    {
+        source: "me_dev",
+        name: "v_indi_distrito",
+        visibility: false,
+        title: "Consulta Indicadores",
+        type: "OpenLayers.Layer",
+        group: "consulta",
+        cql_filter: ""
+    },
     // Capas Base
     // {   
     //     source: "me",
@@ -68,13 +77,13 @@ var layers = [{
         source: "osm",
         name: "mapnik",
         title: "Open Street Map",
-        selected: true,
         group: "background"
     },{
         source: "ol",
         group: "background",
         fixed: true,
         type: "OpenLayers.Layer",
-        args: ["Sin capa base",{visibility: false}]
+        selected: true,
+        args: ["Sin capa base"]
     }
 ]

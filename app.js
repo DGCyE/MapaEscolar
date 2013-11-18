@@ -1,4 +1,4 @@
-var app, filtroEscuelas, buscadorEscuelas, nomenclatura;
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura;
 var permalink;
 
 Ext.onReady(function() {
@@ -193,6 +193,15 @@ Ext.onReady(function() {
                     buscadorEscuelas.mostrar();
                 }
             }]
+        },{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Consultar Indicadores',
+                handler: function() {
+                    consultarIndicadores.mostrar();
+                }
+            }]
         }],
 
         // layer sources
@@ -228,6 +237,7 @@ Ext.onReady(function() {
     });
 
     filtroEscuelas = new FiltroEscuelas(app.mapPanel.map);
-    buscadorEscuelas = new BuscadorEscuelas(this,app.mapPanel.map);
+    buscadorEscuelas = new BuscadorEscuelas(this, app.mapPanel.map);
+    consultarIndicadores = new ConsultarIndicadores(this, app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
 });
