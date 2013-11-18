@@ -1,4 +1,4 @@
-var app, filtroEscuelas, nomenclatura;
+var app, filtroEscuelas, buscadorEscuelas, nomenclatura;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -182,6 +182,15 @@ Ext.onReady(function() {
                     nomenclatura.mostrar();
                 }
             }]
+        },{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Buscar de Escuelas',
+                handler: function() {
+                    buscadorEscuelas.mostrar();
+                }
+            }]
         }],
 
         // layer sources
@@ -217,5 +226,6 @@ Ext.onReady(function() {
     });
 
     filtroEscuelas = new FiltroEscuelas(app.mapPanel.map);
+    buscadorEscuelas = new BuscadorEscuelas(this,app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
 });
