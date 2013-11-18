@@ -2,12 +2,12 @@ var sources = {
     me_dev: {
         url: "http://192.168.54.20/geoserver/mariano/wms",
         title: "Mapa Escolar :: A Prueba",
-        ptype: "gxp_wmscsource"
+        ptype: "gxp_wmssource"
     },
     me: {
         url: "http://192.168.54.20/geoserver/carto_base/wms",
         title: "Mapa Escolar :: Cartografia Estable",
-        ptype: "gxp_wmscsource"
+        ptype: "gxp_wmssource"
     },
     ign: {
         url: "http://wms.ign.gob.ar/geoserver/wms?",

@@ -1,11 +1,14 @@
 var app, filtroEscuelas, nomenclatura;
 var permalink;
 
+OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
+
 Ext.onReady(function() {
     GeoExt.Lang.set("es");
 
     app = new gxp.Viewer({
-        proxy: "/proxy/?url=",
+       // proxy: "/proxy/?url=",
+       proxy: "../mapgit_ant/proxy/proxy.php?url=",
         portalConfig: {
             layout: "border",
             items: [{
@@ -34,12 +37,15 @@ Ext.onReady(function() {
                     width: "100%",
                     layout: "fit"
                 },
-                items: [{
+                items:
+                [{
                     title: "Capas",
                     id: "layers_tree",
                     border: false,
                     flex: 1
-                }, {
+                },
+
+                 {
                     height: 250,
                     layout: "accordion",
                     title: "Herramientas",
@@ -58,26 +64,18 @@ Ext.onReady(function() {
             }]
         },
         // configuration of all tool plugins for this application
-        tools: [{
+        tools: [
+        {
             ptype: "gxp_layertree",
             outputConfig: {
                 id: "tree",
                 border: true,
                 tbar: []
             },
-            outputTarget: "layers_tree",
-            groups: {
-                "comun" : {title: "Gestion Estatal", expanded: true},
-                "jef" : {title: "Jefaturas", expanded: false},
-                "cie" : {title: "CIIE", expanded: false},
-                "predios" : {title: "Predios", expanded: false},
-                "tematicos" : {title: "Mapas Temáticos",  expanded: false},
-                "default": "Capas Agregadas",
-                "util" : {title: "Capas Utiles", expanded: false},
-                "consulta" : {title: "Resultados", expanded: false},
-                "background" : {title: "Capas Base", exclusive: true, expanded: true}
-            }
-        }, {
+               outputTarget: "layers_tree",
+         },
+
+         {
             ptype: "gxp_addlayers",
             actionTarget: "tree.tbar",
             search: {
@@ -146,7 +144,7 @@ Ext.onReady(function() {
                 iconCls: "gxp-icon-permalink",
                 handler: function() {
                     Ext.MessageBox.show({
-                        title: 'Permalink', 
+                        title: 'Permalink',
                         msg: 'Seleccione y copie el texto con Ctrl+C',
                         value: permalink,
                         multiline: true,
@@ -196,14 +194,14 @@ Ext.onReady(function() {
             title: "Mapa DVBA",
             projection: "EPSG:900913",
             displayProjection: "EPSG:4326",
-            units: "m", 
+            units: "m",
             restrictedExtent: [-7056953.73642308, -5017120.45690587, -6308031.45840665, -3929585.58862602],
             center: [-6768040.2321373,-4401345.9230043],
             zoom: 6,
             numZoomLevels: 19,
             maxResolution: '156543.0339',
             stateId: "map",
-            prettyStateKeys: true,            
+            prettyStateKeys: true,
             layers: layers,
             items: [{
                 xtype: "gx_zoomslider",
