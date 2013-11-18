@@ -50,8 +50,24 @@ var layers = [{
         type: "OpenLayers.Layer",
         group: "consulta",
         cql_filter: "sector = 5 AND capa IN (1)"
+    },{
+        source: "me_dev",
+        name: "v_indi_distrito",
+        visibility: false,
+        title: "Consulta Indicadores",
+        type: "OpenLayers.Layer",
+        group: "consulta",
+        cql_filter: ""
     },
+    // Capas Base
+    // {
+    //     source: "me",
+    //     name: "carto_base",
+    //     title: "Capa Base",
+    //     group: "background"
+    // },
     // Capas Base ///////////////////////////////////////////////////////////////////////////////
+
 
       {
             source: "google",
@@ -95,14 +111,16 @@ var layers = [{
             selected: true,
             group: "background"
         },
-         {
+        {
          source: "ol",
          type: "OpenLayers.Layer.WMS",
          args: ["Capa Base", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'carto_base'}],
          title: "Capa Base",
          group: "background"
+
      },
-     {
+    {
+
         source: "ol",
         group: "background",
         fixed: true,

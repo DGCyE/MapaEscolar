@@ -1,4 +1,4 @@
-var app, filtroEscuelas, buscadorEscuelas, nomenclatura;
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -8,7 +8,7 @@ Ext.onReady(function() {
 
     app = new gxp.Viewer({
        // proxy: "/proxy/?url=",
-       proxy: "../mapgit_ant/proxy/proxy.php?url=",
+       proxy: "proxy/?url=",
         portalConfig: {
             layout: "border",
             items: [{
@@ -174,23 +174,34 @@ Ext.onReady(function() {
                     filtroEscuelas.mostrar();
                 }
             }]
-        },{
-            // not a useful tool - just a demo for additional items
-            xtype: "tbbutton",
-            actionTarget: "map.tbar",
-            actions: [{
-                text: 'Nomenclatura',
-                handler: function() {
-                    nomenclatura.mostrar();
-                }
-            }]
-        },{
+        },
+        //{
+        //     // not a useful tool - just a demo for additional items
+        //     xtype: "tbbutton",
+        //     actionTarget: "map.tbar",
+        //     actions: [{
+        //         text: 'Nomenclatura',
+        //         handler: function() {
+        //             nomenclatura.mostrar();
+        //         }
+        //     }]
+        // },
+        {
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Buscar de Escuelas',
                 handler: function() {
                     buscadorEscuelas.mostrar();
+                }
+            }]
+        },{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Consultar Indicadores',
+                handler: function() {
+                    consultarIndicadores.mostrar();
                 }
             }]
         }],
@@ -228,6 +239,7 @@ Ext.onReady(function() {
     });
 
     filtroEscuelas = new FiltroEscuelas(app.mapPanel.map);
-    buscadorEscuelas = new BuscadorEscuelas(this,app.mapPanel.map);
+    buscadorEscuelas = new BuscadorEscuelas(this, app.mapPanel.map);
+    consultarIndicadores = new ConsultarIndicadores(this, app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
 });
