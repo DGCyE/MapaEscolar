@@ -200,7 +200,7 @@ Ext.onReady(function() {
         // map and layers
         map: {
             id: "mymap",
-            title: "Mapa DVBA",
+            title: "Mapa Escolar",
             projection: "EPSG:900913",
             displayProjection: "EPSG:4326",
             units: "m",
