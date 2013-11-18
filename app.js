@@ -32,7 +32,7 @@ Ext.onReady(function() {
                 xtype: "container",
                 layout: "vbox",
                 region: "west",
-                width: 200,
+                width: 220,
                 defaults: {
                     width: "100%",
                     layout: "fit"
@@ -51,6 +51,7 @@ Ext.onReady(function() {
                     title: "Herramientas",
                     items: [{
                         title: "Leyenda",
+                        autoScroll: true,
                         id: "legend"
          //           }, {
          //               title: "Mapa de Referencia",
@@ -70,6 +71,7 @@ Ext.onReady(function() {
             outputConfig: {
                 id: "tree",
                 border: true,
+                autoScroll: true,
                 tbar: []
             },
                outputTarget: "layers_tree",
