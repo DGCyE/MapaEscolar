@@ -29,7 +29,7 @@ var Buffer = new Class({
             	}]
 		    });
 			this.win = new Ext.Window({
-				title: 'Compose message',
+				title: 'Dibujar Buffer',
 		        collapsible: true,
 		        maximizable: true,
 		        width: 300,
@@ -41,6 +41,7 @@ var Buffer = new Class({
 		        bodyStyle: 'padding:5px;',
 		        buttonAlign: 'right',
 		        items: this.form,
+		        closeAction: 'hide',
 		        buttons: [{
 		            text: 'Limpiar',
 		            handler: function(){
