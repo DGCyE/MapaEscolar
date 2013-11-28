@@ -5,13 +5,21 @@ OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
 
 Ext.onReady(function() {
     GeoExt.Lang.set("es");
-
     app = new gxp.Viewer({
        // proxy: "/proxy/?url=",
+       portalConfig: {
+        header: true
+       },
        proxy: "proxy/?url=",
         portalConfig: {
             layout: "border",
             items: [{
+                region: 'north',
+                contentEl: 'header',
+                autoHeight: true,
+                border: false,
+                margins: '0 0 5 0'
+            },{
                 id: "centerpanel",
                 xtype: "tabpanel",
                 //layout: "fit",
