@@ -1,4 +1,4 @@
-var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer;
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer, sesion;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -261,4 +261,5 @@ Ext.onReady(function() {
     consultarIndicadores = new ConsultarIndicadores(this, app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
     buffer = new Buffer(this);
+    sesion = new Sesion(this);
 });
