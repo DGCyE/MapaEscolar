@@ -1,4 +1,4 @@
-var app, progresiva, nomenclatura;
+var app, progresiva, nomenclatura, buffer;
 Ext.onReady(function() {
     GeoExt.Lang.set("es");
     app = new gxp.Viewer({
@@ -147,6 +147,16 @@ html:'<br><b>Visualizador de IDERA</b><p>Este visualizador fue desarrollado por 
                 text: 'Nomenclatura',
                 handler: function() {
                     nomenclatura.mostrar();
+                }
+            }]
+        },{
+            // not a useful tool - just a demo for additional items
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Buffer',
+                handler: function() {
+                    buffer.mostrar();
                 }
             }]
         }],
@@ -299,4 +309,5 @@ html:'<br><b>Visualizador de IDERA</b><p>Este visualizador fue desarrollado por 
     });
     progresiva = new Progresiva(this);
     nomenclatura = new Nomenclatura(this);
+    buffer = new Buffer(this);
 });

@@ -1,4 +1,4 @@
-var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura;
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -164,7 +164,8 @@ Ext.onReady(function() {
                     window.location = 'index900913.html';
                 }
             }]
-        }*/{
+        }*/
+        {
             // not a useful tool - just a demo for additional items
             xtype: "tbbutton",
             actionTarget: "map.tbar",
@@ -202,6 +203,15 @@ Ext.onReady(function() {
                 text: 'Consultar Indicadores',
                 handler: function() {
                     consultarIndicadores.mostrar();
+                }
+            }]
+        },{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Buffer',
+                handler: function() {
+                    buffer.mostrar();
                 }
             }]
         }],
@@ -242,4 +252,5 @@ Ext.onReady(function() {
     buscadorEscuelas = new BuscadorEscuelas(this, app.mapPanel.map);
     consultarIndicadores = new ConsultarIndicadores(this, app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
+    buffer = new Buffer(this);
 });

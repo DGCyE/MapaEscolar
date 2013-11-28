@@ -31,14 +31,14 @@ var layers = [{
         source: "ol",
         type: "OpenLayers.Layer.WMS",
         visibility: false,
-        args: ["Predios", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'predios',transparent:true}],
+        args: ["Predios", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'predios',transparent:true}],
         title: "Predios",
         group: "predios"
     },
     {
         source: "me",
         name: "partidos",
-        visibility: true,
+        visibility: false,
         title: "Partidos",
         type: "OpenLayers.Layer",
         group: "util"
@@ -58,6 +58,15 @@ var layers = [{
         type: "OpenLayers.Layer",
         group: "consulta",
         cql_filter: ""
+    },
+    {
+        source: "ol",
+        name: "buffer",
+        visibility: false,
+        title: "Buffer",
+        args: ["Buffer"],
+        type: "OpenLayers.Layer.Vector",
+        group: "consulta"
     },
     // Capas Base
     // {
@@ -114,7 +123,7 @@ var layers = [{
         {
          source: "ol",
          type: "OpenLayers.Layer.WMS",
-         args: ["Capa Base", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'carto_base'}],
+         args: ["Capa Base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'carto_base'}],
          title: "Capa Base",
          group: "background"
 
@@ -125,6 +134,6 @@ var layers = [{
         group: "background",
         fixed: true,
         type: "OpenLayers.Layer.WMS",
-        args: ["Sin Capa base", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'partidos'}]
+        args: ["Sin Capa base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
     }
 ]
