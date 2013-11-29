@@ -62,7 +62,7 @@ var Buffer = new Class({
 	},
 	clickEnMapa: function(){
 		var self = this;
-		ClickControl = OpenLayers.Class(OpenLayers.Control, {                
+		ClickControl = OpenLayers.Class(OpenLayers.Control, {
             defaultHandlerOptions: {
                 'single': true,
                 'double': false,
@@ -77,14 +77,13 @@ var Buffer = new Class({
                 );
                 OpenLayers.Control.prototype.initialize.apply(
                     this, arguments
-                ); 
+                );
                 this.handler = new OpenLayers.Handler.Click(
                     this, {
                         'click': this.trigger
                     }, this.handlerOptions
                 );
-            }, 
-
+            },
             trigger: function(e) {
                 var bufferValue = self.form.getForm().findField('radio').getValue();
                 var lonlat = app.mapPanel.map.getLonLatFromPixel(e.xy);

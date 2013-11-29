@@ -77,6 +77,14 @@ var layers = [{
         title: "Predios",
         group: "predios"
     },
+     {
+        source: "ol",
+        type: "OpenLayers.Layer.WMS",
+        visibility: false,
+        args: ["Regiones", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'regiones',transparent:true}],
+        title: "Regiones",
+        group: "util"
+    },
     {
         source: "me",
         name: "partidos",
@@ -218,6 +226,14 @@ var layers = [{
         args: ["Predios", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'predios',transparent:true}],
         title: "Predios",
         group: "predios"
+    },
+     {
+        source: "ol",
+        type: "OpenLayers.Layer.WMS",
+        visibility: false,
+        args: ["Regiones", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'regiones',transparent:true}],
+        title: "Regiones",
+        group: "util"
     },
     {
         source: "me",

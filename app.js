@@ -13,13 +13,17 @@ Ext.onReady(function() {
        proxy: "proxy/?url=",
         portalConfig: {
             layout: "border",
-            items: [{
-                region: 'north',
-                contentEl: 'header',
-                autoHeight: true,
+
+            items: [
+                {
+                id: "northpanel",
+                xtype: "container",
+                region: "north",
                 border: false,
-                margins: '0 0 5 0'
-            },{
+                height: 47,
+                items: [{ html: '<div style="background-color:#F5812E;text-align:center"> <p>Mapa Escolar</p> </div>'}]
+              },
+              {
                 id: "centerpanel",
                 xtype: "tabpanel",
                 //layout: "fit",
@@ -145,12 +149,14 @@ Ext.onReady(function() {
             ptype: "gxp_googlegeocoder",
             outputTarget: "map.tbar",
             outputConfig: {
-                emptyText: "Buscar un lugar ..."
+                emptyText: "Buscar un lugar ...",
+                 width: 300
             }
         }, {
             xtype: "gxp_scaleoverlay",
             actionTarget: "map.tbar"
-        }, {
+        },
+         {
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
@@ -167,12 +173,24 @@ Ext.onReady(function() {
                     });
                 }
             }]
-        },{
+        }, /*{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Cambiar a EPSG:900913',
+                handler: function() {
+                    window.location = 'index900913.html';
+                }
+            }]
+        }*/
+
+        {
             // not a useful tool - just a demo for additional items
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Arbol Escuelas',
+                //iconCls: "gxp-arbol",
                 handler: function() {
                     filtroEscuelas.mostrar();
                 }
