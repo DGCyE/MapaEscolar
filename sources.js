@@ -32,7 +32,7 @@ var sources = {
     },
     ol: {
         ptype: "gxp_olsource"
-    }
+    },
     idera_csw: {
         ptype: "gxp_cataloguesource",
         url: "http://www.idera.gob.ar/catalogo/srv/es/csw?request=GetCapabilities&service=CSW",
