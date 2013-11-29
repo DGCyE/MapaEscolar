@@ -60,7 +60,7 @@ Ext.onReady(function() {
                  {
                     height: 250,
                     layout: "accordion",
-                    title: "Herramientas",
+                    // title: "Herramientas",
                     items: [{
                         title: "Leyenda",
                         autoScroll: true,
