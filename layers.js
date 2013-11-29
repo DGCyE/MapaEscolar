@@ -35,19 +35,19 @@ var layers = [{
         title: "Predios",
         group: "predios"
     },
-     {
+  /*   {
         source: "ol",
         type: "OpenLayers.Layer.WMS",
         visibility: false,
-        args: ["Distritos", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'partidos',transparent:true}],
+        args: ["Distritos", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos',transparent:true}],
         title: "Distritos",
         group: "util"
-    },
+    }, */
      {
         source: "ol",
         type: "OpenLayers.Layer.WMS",
         visibility: false,
-        args: ["Regiones", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'regiones',transparent:true}],
+        args: ["Regiones", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'regiones',transparent:true}],
         title: "Regiones",
         group: "util"
     },
@@ -153,6 +153,6 @@ var layers = [{
         fixed: true,
         type: "OpenLayers.Layer.WMS",
        // args: ["Distritos", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'partidos'}]
-        args: ["Sin Capa base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
+        args: ["Distritos", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
     }
 ]
