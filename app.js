@@ -1,16 +1,19 @@
-var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura;
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer, sesion;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
 
 Ext.onReady(function() {
     GeoExt.Lang.set("es");
-
     app = new gxp.Viewer({
        // proxy: "/proxy/?url=",
+       portalConfig: {
+        header: true
+       },
        proxy: "proxy/?url=",
         portalConfig: {
             layout: "border",
+
             items: [
                 {
                 id: "northpanel",
@@ -20,7 +23,7 @@ Ext.onReady(function() {
                 height: 47,
                 items: [{ html: '<div style="background-color:#F5812E;text-align:center"> <p>Mapa Escolar</p> </div>'}]
               },
-             {
+              {
                 id: "centerpanel",
                 xtype: "tabpanel",
                 //layout: "fit",
@@ -149,6 +152,34 @@ Ext.onReady(function() {
             xtype: "gxp_scaleoverlay",
             actionTarget: "map.tbar"
         },
+         {
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Permalink',
+                iconCls: "gxp-icon-permalink",
+                handler: function() {
+                    Ext.MessageBox.show({
+                        title: 'Permalink',
+                        msg: 'Seleccione y copie el texto con Ctrl+C',
+                        value: permalink,
+                        multiline: true,
+                        width: 500,
+                        icon: Ext.MessageBox.INFO
+                    });
+                }
+            }]
+        }, /*{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Cambiar a EPSG:900913',
+                handler: function() {
+                    window.location = 'index900913.html';
+                }
+            }]
+        }*/
+
         {
             // not a useful tool - just a demo for additional items
             xtype: "tbbutton",
@@ -194,6 +225,15 @@ Ext.onReady(function() {
                     consultarIndicadores.mostrar();
                 }
             }]
+        },{
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Buffer',
+                handler: function() {
+                    buffer.mostrar();
+                }
+            }]
         }],
 
         // layer sources
@@ -232,4 +272,6 @@ Ext.onReady(function() {
     buscadorEscuelas = new BuscadorEscuelas(this, app.mapPanel.map);
     consultarIndicadores = new ConsultarIndicadores(this, app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
+    buffer = new Buffer(this);
+    sesion = new Sesion(this);
 });

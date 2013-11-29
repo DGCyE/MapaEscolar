@@ -1,11 +1,13 @@
+var ipMeGeo = "192.168.54.20";
+//var ipMeGeo = "25.161.221.52";
 var sources = {
     me_dev: {
-        url: "http://192.168.54.20/geoserver/mariano/wms",
+        url: "http://"+ipMeGeo+"/geoserver/mariano/wms",
         title: "Mapa Escolar :: A Prueba",
         ptype: "gxp_wmssource"
     },
     me: {
-        url: "http://192.168.54.20/geoserver/carto_base/wms",
+        url: "http://"+ipMeGeo+"/geoserver/carto_base/wms",
         title: "Mapa Escolar :: Cartografia Estable",
         ptype: "gxp_wmssource"
     },
