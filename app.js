@@ -11,7 +11,16 @@ Ext.onReady(function() {
        proxy: "proxy/?url=",
         portalConfig: {
             layout: "border",
-            items: [{
+            items: [
+                {
+                id: "northpanel",
+                xtype: "container",
+                region: "north",
+                border: false,
+                height: 47,
+                items: [{ html: '<div style="background-color:#F5812E;text-align:center"> <p>Mapa Escolar</p> </div>'}]
+              },
+             {
                 id: "centerpanel",
                 xtype: "tabpanel",
                 //layout: "fit",
@@ -133,48 +142,27 @@ Ext.onReady(function() {
             ptype: "gxp_googlegeocoder",
             outputTarget: "map.tbar",
             outputConfig: {
-                emptyText: "Buscar un lugar ..."
+                emptyText: "Buscar un lugar ...",
+                 width: 300
             }
         }, {
             xtype: "gxp_scaleoverlay",
             actionTarget: "map.tbar"
-        }, {
-            xtype: "tbbutton",
-            actionTarget: "map.tbar",
-            actions: [{
-                text: 'Permalink',
-                iconCls: "gxp-icon-permalink",
-                handler: function() {
-                    Ext.MessageBox.show({
-                        title: 'Permalink',
-                        msg: 'Seleccione y copie el texto con Ctrl+C',
-                        value: permalink,
-                        multiline: true,
-                        width: 500,
-                        icon: Ext.MessageBox.INFO
-                    });
-                }
-            }]
-        }, /*{
-            xtype: "tbbutton",
-            actionTarget: "map.tbar",
-            actions: [{
-                text: 'Cambiar a EPSG:900913',
-                handler: function() {
-                    window.location = 'index900913.html';
-                }
-            }]
-        }*/{
+        },
+        {
             // not a useful tool - just a demo for additional items
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Arbol Escuelas',
+                //iconCls: "gxp-arbol",
                 handler: function() {
                     filtroEscuelas.mostrar();
                 }
             }]
         },
+
+
         //{
         //     // not a useful tool - just a demo for additional items
         //     xtype: "tbbutton",
@@ -191,6 +179,7 @@ Ext.onReady(function() {
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Buscar de Escuelas',
+                //iconCls: 'gxp-icon-find',
                 handler: function() {
                     buscadorEscuelas.mostrar();
                 }
@@ -200,6 +189,7 @@ Ext.onReady(function() {
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Consultar Indicadores',
+                //iconCls: 'bt-query-avancada',
                 handler: function() {
                     consultarIndicadores.mostrar();
                 }

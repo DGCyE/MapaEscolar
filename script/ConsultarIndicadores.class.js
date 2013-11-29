@@ -201,7 +201,7 @@ var ConsultarIndicadores = new Class({
 			bodyStyle: 'padding:5px 5px 0',
 			width: 629,
 			items: [
-				comboDominio, comboIndi, comboPer, comboOfertas, /*, comboAnos2, comboUFs, comboVar, comboSimb, */
+				comboDominio, comboIndi, comboPer, comboOfertas,
 			],
 			buttons: [{
 				text: 'Generar Capa',

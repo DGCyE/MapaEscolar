@@ -35,14 +35,32 @@ var layers = [{
         title: "Predios",
         group: "predios"
     },
-    {
+     {
+        source: "ol",
+        type: "OpenLayers.Layer.WMS",
+        visibility: false,
+        args: ["Distritos", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'partidos',transparent:true}],
+        title: "Distritos",
+        group: "util"
+    },
+     {
+        source: "ol",
+        type: "OpenLayers.Layer.WMS",
+        visibility: false,
+        args: ["Regiones", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'regiones',transparent:true}],
+        title: "Regiones",
+        group: "util"
+    },
+  /*  {
         source: "me",
         name: "partidos",
         visibility: true,
         title: "Partidos",
-        type: "OpenLayers.Layer",
+        type: "OpenLayers.Layer.WMS",
         group: "util"
-    },{
+    },
+   */
+    {
         source: "me_dev",
         name: "v_escuelas_geoserver",
         visibility: false,
@@ -119,12 +137,13 @@ var layers = [{
          group: "background"
 
      },
+
     {
 
         source: "ol",
         group: "background",
         fixed: true,
         type: "OpenLayers.Layer.WMS",
-        args: ["Sin Capa base", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'partidos'}]
+        args: ["Distritos", "http://192.168.54.20/geoserver/carto_base/wms", {layers: 'partidos'}]
     }
 ]
