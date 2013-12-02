@@ -167,25 +167,19 @@ var layers = [{
             source: "osm",
             name: "mapnik",
             title: "Open Street Map",
-            selected: true,
             group: "background"
-        },
-        {
-         source: "ol",
-         type: "OpenLayers.Layer.WMS",
-         args: ["Capa Base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'carto_base'}],
-         title: "Capa Base",
-         group: "background"
-
-     },
-    {
-
-        source: "ol",
-        group: "background",
-        fixed: true,
-        type: "OpenLayers.Layer.WMS",
-        args: ["Sin Capa base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
-    }
+        },{
+            source: "ol",
+            group: "background",
+            type: "OpenLayers.Layer.WMS",
+            args: ["Sin Capa base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
+        },{
+             source: "ol",
+             type: "OpenLayers.Layer.WMS",
+             args: ["Capa Base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'carto_base'}],
+             title: "Capa Base",
+             group: "background"
+         }
 ]
 <?php
 	else:
@@ -317,25 +311,19 @@ var layers = [{
             source: "osm",
             name: "mapnik",
             title: "Open Street Map",
-            selected: true,
             group: "background"
-        },
-        {
-         source: "ol",
-         type: "OpenLayers.Layer.WMS",
-         args: ["Capa Base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'carto_base'}],
-         title: "Capa Base",
-         group: "background"
-
-     },
-    {
-
-        source: "ol",
-        group: "background",
-        fixed: true,
-        type: "OpenLayers.Layer.WMS",
-        args: ["Sin Capa base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
-    }
+        },{
+            source: "ol",
+            group: "background",
+            type: "OpenLayers.Layer.WMS",
+            args: ["Sin Capa base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'partidos'}]
+        },{
+            source: "ol",
+            type: "OpenLayers.Layer.WMS",
+            args: ["Capa Base", "http://"+ipMeGeo+"/geoserver/carto_base/wms", {layers: 'carto_base'}],
+            title: "Capa Base",
+            group: "background"
+        }
 ]
 <?php
 	endif;

@@ -59,7 +59,7 @@ Ext.onReady(function() {
                  {
                     height: 250,
                     layout: "accordion",
-                    title: "Herramientas",
+                    // title: "Herramientas",
                     items: [{
                         title: "Leyenda",
                         autoScroll: true,
@@ -128,9 +128,13 @@ Ext.onReady(function() {
             layerParams: ["CQL_FILTER"]
         }, {
             ptype: "gxp_measure",
+            id: "tool_measure",
             outputConfig: {
                 width: 400,
                 height: "auto"
+            },
+            controlOptions: {
+                geodesic: false
             },
             actionTarget: "map.tbar",
             toggleGroup: "navegacion"
@@ -190,47 +194,34 @@ Ext.onReady(function() {
                     filtroEscuelas.mostrar();
                 }
             }]
-        },
-
-
-        //{
-        //     // not a useful tool - just a demo for additional items
-        //     xtype: "tbbutton",
-        //     actionTarget: "map.tbar",
-        //     actions: [{
-        //         text: 'Nomenclatura',
-        //         handler: function() {
-        //             nomenclatura.mostrar();
-        //         }
-        //     }]
-        // },
-        {
-            xtype: "tbbutton",
-            actionTarget: "map.tbar",
-            actions: [{
-                text: 'Buscar de Escuelas',
-                //iconCls: 'gxp-icon-find',
-                handler: function() {
-                    buscadorEscuelas.mostrar();
-                }
-            }]
         },{
-            xtype: "tbbutton",
-            actionTarget: "map.tbar",
+            xtype: 'tbbutton',
             actions: [{
-                text: 'Consultar Indicadores',
-                //iconCls: 'bt-query-avancada',
-                handler: function() {
-                    consultarIndicadores.mostrar();
-                }
-            }]
-        },{
-            xtype: "tbbutton",
-            actionTarget: "map.tbar",
-            actions: [{
-                text: 'Buffer',
-                handler: function() {
-                    buffer.mostrar();
+                xtype: 'tbbutton',
+                text: 'Herramientas',
+                menu: {
+                    items:[{
+                        text: 'Buscar de Escuelas',
+                        iconCls: 'gxp-icon-find',
+                        handler: function() {
+                            buscadorEscuelas.mostrar();
+                        }
+                    },{
+                        text: 'Consultar Indicadores',
+                        handler: function() {
+                            consultarIndicadores.mostrar();
+                        }
+                    },{
+                        text: 'Buffer',
+                        handler: function() {
+                            buffer.mostrar();
+                        }
+                    },{
+                        text: 'Nomenclatura',
+                        handler: function() {
+                            nomenclatura.mostrar();
+                        }
+                    }]
                 }
             }]
         }],

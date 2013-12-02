@@ -1,7 +1,7 @@
-var server = "http://hyperdvba:8080/";//"http://127.0.0.1:8080/";//http://hyperdvba:8080/";
+var server = "http://192.168.54.20/";//"http://127.0.0.1:8080/";//http://hyperdvba:8080/";
 var masizos = "masizos",
 	parcelas = "parcelas";
-var workspace = "dvba";
+var workspace = "carto_base";
 
 var Nomenclatura = new Class({ 
 	Implements: Events,
@@ -224,7 +224,7 @@ var Nomenclatura = new Class({
 				srsName: app.mapPanel.map.getProjection(),
 				outputFormat: 'text/javascript',
 				format_options: 'callback:callbackNomenclatura',
-				filter: '<PropertyIsEqualTo> <PropertyName>NOMENCLA</PropertyName> <Literal>'+this.nomenclatura+'</Literal> </PropertyIsEqualTo>',
+				filter: '<PropertyIsEqualTo> <PropertyName>nomencla</PropertyName> <Literal>'+this.nomenclatura+'</Literal> </PropertyIsEqualTo>',
 			},
 		}).send();
 	},
