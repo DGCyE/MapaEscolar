@@ -13,8 +13,7 @@ Ext.onReady(function() {
        proxy: "proxy/?url=",
         portalConfig: {
             layout: "border",
-
-            items: [
+           items: [
                 {
                 id: "northpanel",
                 xtype: "container",
