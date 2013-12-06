@@ -1,4 +1,4 @@
-var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer, sesion;
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer, sesion, ficha;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -222,6 +222,11 @@ Ext.onReady(function() {
                         handler: function() {
                             nomenclatura.mostrar();
                         }
+                    },{
+                        text: 'Ficha de Escuelas',
+                        handler: function() {
+                            ficha.mostrar();
+                        }
                     }]
                 }
             }]
@@ -265,4 +270,5 @@ Ext.onReady(function() {
     nomenclatura = new Nomenclatura(this);
     buffer = new Buffer(this);
     sesion = new Sesion(this);
+    ficha = new Ficha(this);
 });
