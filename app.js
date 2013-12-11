@@ -1,4 +1,6 @@
-var app, filtroEscuelas, buscadorEscuelas, posicionamiento, consultarIndicadores, nomenclatura_par, nomenclatura, buffer, sesion;
+
+var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura_par, nomenclatura, buffer, sesion, ficha;
+
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -241,6 +243,7 @@ Ext.onReady(function() {
                         }
                     },{
                         text: 'Nomenclatura',
+<<<<<<< HEAD
                         iconCls: 'bt-query',
                            menu: {
                                    items: [
@@ -262,6 +265,17 @@ Ext.onReady(function() {
                                  }
                       }
                   ]
+=======
+                        handler: function() {
+                            nomenclatura.mostrar();
+                        }
+                    },{
+                        text: 'Ficha de Escuelas',
+                        handler: function() {
+                            ficha.mostrar();
+                        }
+                    }]
+>>>>>>> 816d1f84d78136c4e86f316805913df55a75ec73
                 }
             }]
         }],
@@ -319,4 +333,5 @@ Ext.onReady(function() {
     nomenclatura_par = new Nomenclatura_par(this);
     buffer = new Buffer(this);
     sesion = new Sesion(this);
+    ficha = new Ficha(this);
 });
