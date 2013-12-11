@@ -3,7 +3,7 @@ var masizos = "masizos",
 	parcelas = "parcelas";
 var workspace = "carto_base";
 
-var Nomenclatura = new Class({ 
+var Nomenclatura = new Class({
 	Implements: Events,
 	win: false,
 	dom: false,
@@ -15,7 +15,7 @@ var Nomenclatura = new Class({
 		this.dom.getElement('button').addEvent('click',this.consultar.bind(this));
 		window.callbackNomenclatura = this.procesarRespuesta.bind(this);
 		this.capa = new OpenLayers.Layer.Vector("Consulta Nomenclatura", {
-			group: "vialidad"
+			group: "util"
 		});
 	},
 	mostrar: function(){
@@ -43,7 +43,7 @@ var Nomenclatura = new Class({
 	},
 	clickEnMapa: function(){
 		var self = this;
-		ClickControl = OpenLayers.Class(OpenLayers.Control, {                
+		ClickControl = OpenLayers.Class(OpenLayers.Control, {
             defaultHandlerOptions: {
                 'single': true,
                 'double': false,
@@ -58,13 +58,13 @@ var Nomenclatura = new Class({
                 );
                 OpenLayers.Control.prototype.initialize.apply(
                     this, arguments
-                ); 
+                );
                 this.handler = new OpenLayers.Handler.Click(
                     this, {
                         'click': this.trigger
                     }, this.handlerOptions
                 );
-            }, 
+            },
 
             trigger: function(e) {
                 var lonlat = app.mapPanel.map.getLonLatFromPixel(e.xy);
@@ -75,10 +75,10 @@ var Nomenclatura = new Class({
                 }
                 var bufferValue = 5;
                 self.buffer = new OpenLayers.Geometry.Polygon.createRegularPolygon(point,bufferValue,20);
-				
+
 				self.bufferVec = new OpenLayers.Feature.Vector(self.buffer);
 				self.capa.addFeatures([self.bufferVec]);
-                
+
                 var bounds = self.buffer.getBounds().toArray();
                 self.win.disable();
 				self.reqJsonP = new Request.JSONP({
@@ -88,7 +88,7 @@ var Nomenclatura = new Class({
 						service: 'WFS',
 						version: '1.0.0',
 						request: 'GetFeature',
-						typeName: 'parcela',
+						typeName: 'parcelas',
 						maxFeatures: '100',
 						srsName: app.mapPanel.map.getProjection(),
 						outputFormat: 'text/javascript',
@@ -96,7 +96,7 @@ var Nomenclatura = new Class({
 						filter: "<Filter><BBOX><PropertyName>the_geom</PropertyName><Box srsName='EPSG:900913'><coordinates>"+bounds[0]+","+bounds[1]+" "+bounds[2]+","+bounds[3]+"</coordinates></Box></BBOX></Filter>"
 					},
 					onTimeout: function(){
-						console.log('onTimeout',arguments);	
+						console.log('onTimeout',arguments);
 						//Ext.MessageBox.alert('Error', 'No se pudo encontrar un resultado, los datos son erroneos.');
 						self.win.enable();
 					}
@@ -161,13 +161,13 @@ var Nomenclatura = new Class({
 		if(nomenclatura.partido.seteado){//Tiene Partido?
 			if(nomenclatura.circunscripcion.seteado){//Tiene Circunscripcion?
 				if(nomenclatura.seccion.seteado){//Tiene Seccion?
-					if(	nomenclatura.chacra.seteado || 
-						nomenclatura.quinta.seteado || 
+					if(	nomenclatura.chacra.seteado ||
+						nomenclatura.quinta.seteado ||
 						nomenclatura.fraccion.seteado ||
 						nomenclatura.manzana.seteado){
 						if(nomenclatura.parcela.seteado){
 							capa = "parcelas";
-							this.nomenclatura = 
+							this.nomenclatura =
 								nomenclatura.partido.valor+
 								nomenclatura.circunscripcion.valor+
 								nomenclatura.seccion.valor+
@@ -178,7 +178,7 @@ var Nomenclatura = new Class({
 								nomenclatura.parcela.valor;
 						}else{
 							capa = "macizos";
-							this.nomenclatura = 
+							this.nomenclatura =
 								nomenclatura.partido.valor+
 								nomenclatura.circunscripcion.valor+
 								nomenclatura.seccion.valor+
@@ -211,7 +211,7 @@ var Nomenclatura = new Class({
 			url: server+'geoserver/'+workspace+'/wfs',
 			timeout: 7000,
 			onTimeout: function(){
-				console.log('onTimeout',arguments);	
+				console.log('onTimeout',arguments);
 				//Ext.MessageBox.alert('Error', 'No se pudo encontrar un resultado, los datos son erroneos.');
 				self.win.enable();
 			},

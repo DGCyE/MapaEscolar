@@ -1,4 +1,4 @@
-var app, filtroEscuelas, buscadorEscuelas, consultarIndicadores, nomenclatura, buffer, sesion;
+var app, filtroEscuelas, buscadorEscuelas, posicionamiento, consultarIndicadores, nomenclatura_par, nomenclatura, buffer, sesion;
 var permalink;
 
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
@@ -37,8 +37,14 @@ Ext.onReady(function() {
                 }, {
                     title: "Acerca de",
                     html: "<iframe src='about.html'>"
-                }]
-            }, {
+                }
+
+                ]
+            },
+            //////////////////
+
+            ///////////////
+             {
                 id: "westcontainer",
                 xtype: "container",
                 layout: "vbox",
@@ -75,6 +81,7 @@ Ext.onReady(function() {
                 }]
             }]
         },
+
         // configuration of all tool plugins for this application
         tools: [
         {
@@ -151,11 +158,13 @@ Ext.onReady(function() {
                 emptyText: "Buscar un lugar ...",
                  width: 300
             }
-        }, {
-            xtype: "gxp_scaleoverlay",
+        },
+    /*    {
+            xtype: "gxp_ScaleOverlay",
             actionTarget: "map.tbar"
         },
-         {
+     */
+        {
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
@@ -194,7 +203,21 @@ Ext.onReady(function() {
                     filtroEscuelas.mostrar();
                 }
             }]
-        },{
+        },
+        {
+            // not a useful tool - just a demo for additional items
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+                text: 'Localización',
+                //iconCls: 'bt-localizacion',
+                handler: function(event) {
+                     posicioname().show();
+                }
+            }]
+        },
+
+        {
             xtype: 'tbbutton',
             actions: [{
                 xtype: 'tbbutton',
@@ -218,10 +241,27 @@ Ext.onReady(function() {
                         }
                     },{
                         text: 'Nomenclatura',
-                        handler: function() {
-                            nomenclatura.mostrar();
-                        }
-                    }]
+                        iconCls: 'bt-query',
+                           menu: {
+                                   items: [
+                                              {
+                                                 text: 'Por Partido-Partida',
+                                                 iconCls: 'bt-query',
+                                                 handler: function( item, event ){
+                                                               nomenclatura_par.mostrar();
+                                                             }
+                                              },
+                                              {
+                                                 text: 'Por Nomenclatura',
+                                                 iconCls: 'bt-query',
+                                                 handler: function() {
+                                                          nomenclatura.mostrar();
+                                                        }
+                                              }
+                                          ]
+                                 }
+                      }
+                  ]
                 }
             }]
         }],
@@ -244,12 +284,26 @@ Ext.onReady(function() {
             maxResolution: '156543.0339',
             stateId: "map",
             prettyStateKeys: true,
+               eventListeners:{
+                    zoomend:function(evt){
+                        console.log(this);
+                        console.log('zoomend');
+                        console.log(this.getZoom())
+                        console.log(this.getScale());
+                        Ext.getCmp('map-bottom').update('Scale: ' + this.getScale());
+                    }
+                },
+
             layers: layers,
             items: [{
                 xtype: "gx_zoomslider",
                 vertical: true,
                 height: 100
-            }]
+               },
+                {
+                  xtype: "gxp_scaleoverlay"
+                }
+               ]
         }
     });
 
@@ -262,6 +316,7 @@ Ext.onReady(function() {
     buscadorEscuelas = new BuscadorEscuelas(this, app.mapPanel.map);
     consultarIndicadores = new ConsultarIndicadores(this, app.mapPanel.map);
     nomenclatura = new Nomenclatura(this);
+    nomenclatura_par = new Nomenclatura_par(this);
     buffer = new Buffer(this);
     sesion = new Sesion(this);
 });
