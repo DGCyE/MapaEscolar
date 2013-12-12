@@ -126,7 +126,17 @@ Ext.onReady(function() {
             actionTarget: "map.tbar",
             toggleGroup: "navegacion"
         }, {
-            ptype: "gxp_wmsgetfeatureinfo",
+            xtype: "tbbutton",
+            actionTarget: "map.tbar",
+            actions: [{
+               // text: 'Ficha de Escuelas',
+                iconCls: "gxp-icon-getfeatureinfo",
+                handler: function() {
+                       ficha.mostrar();
+                }
+            }]
+            /////////////////////////////////////
+        /*    ptype: "gxp_wmsgetfeatureinfo",
             outputConfig: {
                 width: 400,
                 height: 400,
@@ -135,6 +145,7 @@ Ext.onReady(function() {
             actionTarget: "map.tbar",
             toggleGroup: "navegacion",
             layerParams: ["CQL_FILTER"]
+         */
         }, {
             ptype: "gxp_measure",
             id: "tool_measure",
@@ -243,7 +254,7 @@ Ext.onReady(function() {
                         }
                     },{
                         text: 'Nomenclatura',
-<<<<<<< HEAD
+
                         iconCls: 'bt-query',
                            menu: {
                                    items: [
@@ -264,18 +275,15 @@ Ext.onReady(function() {
                                           ]
                                  }
                       }
-                  ]
-=======
-                        handler: function() {
-                            nomenclatura.mostrar();
-                        }
-                    },{
+                 /*   {
                         text: 'Ficha de Escuelas',
                         handler: function() {
                             ficha.mostrar();
                         }
-                    }]
->>>>>>> 816d1f84d78136c4e86f316805913df55a75ec73
+                    }
+                  */
+                    ]
+
                 }
             }]
         }],
