@@ -254,7 +254,7 @@ var ConsultarIndicadores = new Class({
 		this.capa.set('title',nom_capa);
 		this.capa.data.layer.mergeNewParams({
 			'cql_filter': cql,
-			'styles': estilo
+		    'styles': estilo
 		});
 		this.capa.data.layer.setVisibility('true');
 	}

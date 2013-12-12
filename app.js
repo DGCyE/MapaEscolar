@@ -6,8 +6,8 @@ var permalink;
 OpenLayers.ProxyHost = "../mapgit_ant/proxy/proxy.php?url=";
 
 Ext.onReady(function() {
-    GeoExt.Lang.set("es");
-    app = new gxp.Viewer({
+GeoExt.Lang.set("es");
+app = new gxp.Viewer({
        // proxy: "/proxy/?url=",
        portalConfig: {
         header: true
@@ -22,7 +22,8 @@ Ext.onReady(function() {
                 region: "north",
                 border: false,
                 height: 47,
-                items: [{ html: '<div style="background-color:#F5812E;text-align:center"> <p>Mapa Escolar</p> </div>'}]
+                items: [{ html: '<div> <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F58030">  <tr> <td align="center" width="33%"> <img title="urBAsig" src="script/img/dgcye.jpg" alt="urbasig"> </td> </tr> </table>  </div>'}]
+               // items: [{ html: '<div style="background-color:#F5812E;text-align:center"> <p>Mapa Escolar</p> </div>'}]
               },
               {
                 id: "centerpanel",
@@ -43,9 +44,6 @@ Ext.onReady(function() {
 
                 ]
             },
-            //////////////////
-
-            ///////////////
              {
                 id: "westcontainer",
                 xtype: "container",
@@ -176,7 +174,7 @@ Ext.onReady(function() {
             xtype: "gxp_ScaleOverlay",
             actionTarget: "map.tbar"
         },
-     */
+
         {
             xtype: "tbbutton",
             actionTarget: "map.tbar",
@@ -194,7 +192,7 @@ Ext.onReady(function() {
                     });
                 }
             }]
-        }, /*{
+        }, {
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
@@ -211,24 +209,25 @@ Ext.onReady(function() {
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Arbol Escuelas',
-                //iconCls: "gxp-arbol",
+                iconCls: "gxp-arbol",
                 handler: function() {
                     filtroEscuelas.mostrar();
                 }
             }]
         },
-        {
+    /*    {
             // not a useful tool - just a demo for additional items
             xtype: "tbbutton",
             actionTarget: "map.tbar",
             actions: [{
                 text: 'Localización',
-                //iconCls: 'bt-localizacion',
+                iconCls: 'bt-localizacion',
                 handler: function(event) {
                      posicioname().show();
                 }
             }]
         },
+     */
 
         {
             xtype: 'tbbutton',
@@ -244,30 +243,31 @@ Ext.onReady(function() {
                         }
                     },{
                         text: 'Consultar Indicadores',
+                        iconCls: 'bt-query-avancada',
                         handler: function() {
                             consultarIndicadores.mostrar();
                         }
                     },{
                         text: 'Buffer',
+                        iconCls: 'bt-buffer',
                         handler: function() {
                             buffer.mostrar();
                         }
                     },{
                         text: 'Nomenclatura',
-
-                        iconCls: 'bt-query',
+                        iconCls: 'gxp-icon-find',
                            menu: {
                                    items: [
                                               {
                                                  text: 'Por Partido-Partida',
-                                                 iconCls: 'bt-query',
+                                                // iconCls: 'bt-query',
                                                  handler: function( item, event ){
                                                                nomenclatura_par.mostrar();
                                                              }
                                               },
                                               {
                                                  text: 'Por Nomenclatura',
-                                                 iconCls: 'bt-query',
+                                                 //iconCls: 'bt-query',
                                                  handler: function() {
                                                           nomenclatura.mostrar();
                                                         }

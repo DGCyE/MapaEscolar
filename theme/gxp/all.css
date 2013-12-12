@@ -19,7 +19,7 @@
 .x-tree-node .gxp-icon-symbolgrid-point {
     background-image: url(img/silk/bullet_orange.png);
 }
-.x-tree-node .gxp-icon-symbolgrid-line {
+.x-tree-node .bt-buffer .gxp-icon-symbolgrid-line {
     background-image: url(img/geosilk/line_orange.png);
 }
 .x-tree-node .gxp-icon-symbolgrid-polygon {
@@ -194,7 +194,7 @@
 }
 
 /* gxp_featureeditor */
-.x-btn .gxp-icon-addfeature, .x-menu-item .gxp-icon-addfeature {
+.x-btn .gxp-icon-addfeature, .bt-query-avancada, .x-menu-item .gxp-icon-addfeature {
     background-image: url(img/silk/pencil_add.png);
 }
 .x-btn .gxp-icon-editfeature, .x-menu-item .gxp-icon-editfeature {
@@ -235,22 +235,25 @@
 }
 
 /* gxp_zoomtodataextent, gxp_zoomtoselectedfeatures, gxp_zoomtolayerextent */
-.x-btn .gxp-icon-zoom-to, .x-menu-item .gxp-icon-zoom-to, .x-tree-node .gxp-icon-zoom-to { 
+.x-btn .gxp-icon-zoom-to, .x-menu-item .gxp-icon-zoom-to, .x-tree-node .gxp-icon-zoom-to {
     background-image: url(img/silk/magnifier.png);
 }
 
 /* gxp_queryform */
-.x-btn .gxp-icon-find, .x-menu-item .gxp-icon-find { 
+.x-btn .gxp-icon-find, .x-menu-item .gxp-icon-find {
     background-image: url(img/silk/find.png);
 }
 
+.x-btn .gxp-arbol {
+    background-image: url(img/silk/ui_saccordion.png);
+}
 /* gxp_selectfeature */
-.x-btn .gxp-icon-selectfeature, .x-menu-item .gxp-icon-selectfeature { 
+.x-btn .gxp-icon-selectfeature, .x-menu-item .gxp-icon-selectfeature {
     background-image: url(img/silk/cursor.png);
 }
 
 /* gxp_zoomtoextent */
-.x-btn .gxp-icon-zoomtoextent, .x-tree-node .gxp-icon-zoomtoextent { 
+.x-btn .gxp-icon-zoomtoextent, .x-tree-node .gxp-icon-zoomtoextent {
     background-image: url(img/silk/arrow_inout.png);
 }
 
@@ -261,7 +264,9 @@
 .x-btn .gxp-icon-zoom-next, .x-tree-node .gxp-icon-zoom-next {
     background-image: url(img/silk/arrow_right.png);
 }
-
+.bt-buffer  {
+    background-image: url(img/silk/bullet_orange.png);
+}
 /* gxp_zoom */
 .x-btn .gxp-icon-zoom, .x-tree-node .gxp-icon-zoom {
     background-image: url(img/silk/magnifier_zoom.png);
@@ -300,7 +305,7 @@
 }
 
 /* gxp_layeruploadpanel */
-.x-btn .gxp-icon-filebrowse, .x-menu-item .gxp-icon-filebrowse { 
+.x-btn .gxp-icon-filebrowse, .x-menu-item .gxp-icon-filebrowse {
     background-image: url(img/silk/folder.png);
 }
 

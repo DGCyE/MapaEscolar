@@ -74,7 +74,7 @@ var layers = [{
         visibility: false,
         title: "Consulta Indicadores",
         type: "OpenLayers.Layer",
-        group: "consulta",
+        group: "tematicos",
         cql_filter: ""
     },
     {
